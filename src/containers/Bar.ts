@@ -13,7 +13,7 @@ function fetchCalendar(): ThunkResult<void> {
   return async (dispatch, getState) => {
     const calendarUrl = getState().config.calendarUrl;
     if (calendarUrl !== '') {
-      return fetch(getState().config.calendarUrl)
+      return fetch(getState().config.calendarUrl, { mode: 'cors', headers: new Headers({'Content-Type': 'text/calendar'}) })
         .then((res: Response) => {
           if (res.status === 200) {
             return res.text();
