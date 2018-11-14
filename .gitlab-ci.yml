@@ -30,6 +30,8 @@ pages:
   environment:
     name: prod
     url: $URL
+  variables:
+    GIT_STRATEGY: none
   script:
     - mv build public
   artifacts:
