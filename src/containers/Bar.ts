@@ -15,7 +15,7 @@ function fetchCalendar(): ThunkResult<void> {
     if (calendarUrl !== '') {
       return fetch(getState().config.calendarUrl)
         .then((res: Response) => {
-          if (res.status) {
+          if (res.status === 200) {
             return res.text();
           } else {
             return Promise.reject(`L'URL du calendrier a renvoyé le code d'erreur ${res.status} (${res.statusText})`);
