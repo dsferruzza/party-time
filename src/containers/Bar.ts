@@ -23,9 +23,9 @@ function fetchCalendar(): ThunkResult<void> {
         })
         .then((data: string) => {
           dispatch({ type: 'ReceiveCalendar', calendarPayload: data });
-        }, (msg: Error | string) => {
-          const msgStr: string = (msg instanceof Error) ? `${msg.name}: ${msg.message}` : msg;
-          dispatch({ type: 'FetchCalendarError', msg: msgStr })
+        }, (error: Error | string) => {
+          const msg: string = (error instanceof Error) ? `${error.name}: ${error.message}` : error;
+          dispatch({ type: 'FetchCalendarError', msg })
         });
     } else {
       dispatch({ type: 'FetchCalendarError', msg: "L'URL du calendrier est vide" });
