@@ -13,8 +13,10 @@ const styles = createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-  onConfigChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  calendarUrl: string
+  onAccessTokenChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onTimeMinChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  accessToken: string
+  timeMin: string
 }
 
 function Config(props: Props) {
@@ -23,8 +25,12 @@ function Config(props: Props) {
   return (
     <div className={classes.container}>
       <FormControl fullWidth={true}>
-        <InputLabel htmlFor="calendarUrl">URL de l'agenda</InputLabel>
-        <Input id="calendarUrl" value={props.calendarUrl} onChange={props.onConfigChange} />
+        <InputLabel htmlFor="accessToken">Token d'accès à l'API Google</InputLabel>
+        <Input id="accessToken" value={props.accessToken} onChange={props.onAccessTokenChange} />
+      </FormControl>
+      <FormControl fullWidth={true}>
+        <InputLabel htmlFor="timeMin">Date minimum</InputLabel>
+        <Input id="timeMin" value={props.timeMin} onChange={props.onTimeMinChange} />
       </FormControl>
     </div>
   )

@@ -1,4 +1,5 @@
 import fetch from 'cross-fetch';
+import * as queryString from 'query-string';
 import { connect } from 'react-redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
@@ -11,14 +12,29 @@ type MyThunkDispatch = ThunkDispatch<StoreState, undefined, Action>;
 
 function fetchCalendar(): ThunkResult<void> {
   return async (dispatch, getState) => {
-    const calendarUrl = getState().config.calendarUrl;
-    if (calendarUrl !== '') {
-      return fetch(getState().config.calendarUrl, { mode: 'cors', headers: new Headers({'Content-Type': 'text/calendar'}) })
+    const accessToken = getState().config.accessToken;
+    if (accessToken !== '') {
+      const timeMin = getState().config.timeMin;
+      const qs = {
+        access_token: accessToken,
+        maxResults: 2500,
+      };
+      if (timeMin !== '') {
+        Object.assign(qs, { timeMin });
+      }
+      const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events?' + queryString.stringify(qs);
+      const options: RequestInit = {
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        mode: 'cors',
+      };
+      return fetch(url, options)
         .then((res: Response) => {
           if (res.status === 200) {
             return res.text();
           } else {
-            return Promise.reject(`L'URL du calendrier a renvoyé le code d'erreur ${res.status} (${res.statusText})`);
+            return Promise.reject(`La récupération du calendrier a renvoyé le code d'erreur ${res.status} (${res.statusText})`);
           }
         })
         .then((data: string) => {
@@ -28,7 +44,7 @@ function fetchCalendar(): ThunkResult<void> {
           dispatch({ type: 'FetchCalendarError', msg })
         });
     } else {
-      dispatch({ type: 'FetchCalendarError', msg: "L'URL du calendrier est vide" });
+      dispatch({ type: 'FetchCalendarError', msg: "Le token d'accès est vide !" });
     }
   }
 }

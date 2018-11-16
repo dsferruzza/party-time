@@ -3,17 +3,19 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import Config from '../components/Config';
-import { SetCalendarUrl, StoreState } from '../lib/state';
+import { ConfigAction, StoreState } from '../lib/state';
 
 function mapStateToProps(state: StoreState) {
   return {
-    calendarUrl: state.config.calendarUrl,
+    accessToken: state.config.accessToken,
+    timeMin: state.config.timeMin,
   };
 }
 
-function mapDispatchToProps(dispatch: Dispatch<SetCalendarUrl>) {
+function mapDispatchToProps(dispatch: Dispatch<ConfigAction>) {
   return {
-    onConfigChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetCalendarUrl', calendarUrl: e.currentTarget.value }),
+    onAccessTokenChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetAccessToken', accessToken: e.currentTarget.value }),
+    onTimeMinChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetTimeMin', timeMin: e.currentTarget.value }),
   };
 }
 

@@ -1,6 +1,7 @@
 export interface StoreState {
   config: {
-    calendarUrl: string
+    accessToken: string
+    timeMin: string
   }
   status: {
     msg: string | null
@@ -10,18 +11,25 @@ export interface StoreState {
 
 export const emptyStore: StoreState = {
   config: {
-    calendarUrl: '',
+    accessToken: '',
+    timeMin: '',
   },
   status: {
     msg: null
   }
 }
 
-export type Action = SetCalendarUrl | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus;
+export type Action = SetAccessToken | SetTimeMin | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus;
+export type ConfigAction = SetAccessToken | SetTimeMin;
 
-export interface SetCalendarUrl {
-  type: 'SetCalendarUrl'
-  calendarUrl: string
+export interface SetAccessToken {
+  type: 'SetAccessToken'
+  accessToken: string
+}
+
+export interface SetTimeMin {
+  type: 'SetTimeMin'
+  timeMin: string
 }
 
 export interface FetchCalendar {
@@ -45,8 +53,10 @@ export interface ClearStatus {
 export function reducer(state: StoreState, action: Action): StoreState {
   console.log('Reducer', action); // tslint:disable-line:no-console
   switch (action.type) {
-    case 'SetCalendarUrl':
-      return { ...state, config: { ...state.config, calendarUrl: action.calendarUrl } };
+    case 'SetAccessToken':
+      return { ...state, config: { ...state.config, accessToken: action.accessToken } };
+    case 'SetTimeMin':
+      return { ...state, config: { ...state.config, timeMin: action.timeMin } };
     case 'FetchCalendarError':
       return { ...state, status: { ...state.status, msg: action.msg } };
     case 'ClearStatus':
