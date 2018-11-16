@@ -15,13 +15,13 @@ export interface Organizer {
 }
 
 export interface Start {
-    dateTime: Date;
+    dateTime: string;
     timeZone: string;
     date: string;
 }
 
 export interface End {
-    dateTime: Date;
+    dateTime: string;
     timeZone: string;
     date: string;
 }
@@ -81,7 +81,7 @@ export interface ConferenceData {
 }
 
 export interface OriginalStartTime {
-    dateTime: Date;
+    dateTime: string;
     timeZone: string;
 }
 
@@ -91,8 +91,8 @@ export interface Event {
     id: string;
     status: string;
     htmlLink: string;
-    created?: Date;
-    updated?: Date;
+    created?: string;
+    updated?: string;
     summary: string;
     creator: Creator;
     organizer: Organizer;
@@ -120,7 +120,7 @@ export interface Events {
     kind: string;
     etag: string;
     summary: string;
-    updated: Date;
+    updated: string;
     timeZone: string;
     accessRole: string;
     defaultReminders: DefaultReminder[];

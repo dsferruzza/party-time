@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import Bar from '../components/Bar';
-import { fetchCalendar, parseEvents } from '../lib/calendar';
+import { analyzeEvents, fetchCalendar, parseEvents } from '../lib/calendar';
 import { FetchCalendar, FetchCalendarError, ReceiveCalendar, StoreState } from '../lib/state';
 
 type Action = FetchCalendar | FetchCalendarError | ReceiveCalendar;
@@ -15,8 +15,9 @@ function updateCalendar(): ThunkResult<void> {
     if (accessToken !== '') {
       const timeMin = getState().config.timeMin;
       fetchCalendar(accessToken, timeMin).then((data: string) => {
-        const events = parseEvents(data);
-        dispatch({ type: 'ReceiveCalendar', calendarPayload: data, events: events.items });
+        const events = parseEvents(data).items;
+        analyzeEvents(events, timeMin);
+        dispatch({ type: 'ReceiveCalendar', calendarPayload: data, events });
       }, (error: Error | string) => {
         const msg: string = (error instanceof Error) ? `${error.name}: ${error.message}` : error;
         dispatch({ type: 'FetchCalendarError', msg })
