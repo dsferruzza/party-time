@@ -59,7 +59,7 @@ function classifyDay(holidays: List<EventDay>, partialTimeOff: List<EventDay>, d
   } else if (holidays.find(d => d.startDate.year === day.year && d.startDate.month === day.month && d.startDate.day === day.day)) {
     return { day, type: "holiday" };
   } else if (partialTimeOff.find(d => d.startDate.year === day.year && d.startDate.month === day.month && d.startDate.day === day.day)) {
-    return { day, type: "non-working" };
+    return { day, type: "partial-time-off" };
   } else {
     return { day, type: "working" }
   }
