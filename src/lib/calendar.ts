@@ -1,6 +1,8 @@
 import fetch from 'cross-fetch';
 import * as queryString from 'query-string';
 
+import { Events } from './events';
+
 export function fetchCalendar(accessToken: string, timeMin: string): Promise<string> {
   const qs = {
     access_token: accessToken,
@@ -23,4 +25,9 @@ export function fetchCalendar(accessToken: string, timeMin: string): Promise<str
       return Promise.reject(`La récupération du calendrier a renvoyé le code d'erreur ${res.status} (${res.statusText})`);
     }
   });
+}
+
+export function parseEvents(payload: string): Events {
+  const json = JSON.parse(payload);
+  return json as Events;
 }

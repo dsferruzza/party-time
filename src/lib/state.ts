@@ -1,3 +1,5 @@
+import { Event } from './events';
+
 export interface StoreState {
   config: {
     accessToken: string
@@ -6,7 +8,7 @@ export interface StoreState {
   status: {
     msg: string | null
   }
-  fetchedCalendar?: object
+  events?: Event[]
 }
 
 export const emptyStore: StoreState = {
@@ -44,6 +46,7 @@ export interface FetchCalendarError {
 export interface ReceiveCalendar {
   type: 'ReceiveCalendar'
   calendarPayload: string
+  events: Event[]
 }
 
 export interface ClearStatus {
