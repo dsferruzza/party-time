@@ -1,0 +1,44 @@
+variables:
+  DEBIAN_FRONTEND: noninteractive
+  NODE_VERSION: 11
+  URL: https://dsferruzza.gitlab.io/party-time
+
+.yarn_ready: &yarn
+  image: node:$NODE_VERSION
+  before_script:
+    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+    - echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+    - apt-get update -qq
+    - apt-get install -y -qq yarn
+
+build:
+  <<: *yarn
+  stage: build
+  image: node
+  script:
+    - yarn install
+    - yarn build
+  artifacts:
+    name: "$CI_BUILD_NAME"
+    paths:
+      - build/
+  tags:
+    - docker
+
+pages:
+  stage: deploy
+  environment:
+    name: prod
+    url: $URL
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - mv build public
+  artifacts:
+    name: "$CI_BUILD_NAME"
+    paths:
+      - public
+  tags:
+    - docker
+  only:
+    - master
