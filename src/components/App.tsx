@@ -22,6 +22,7 @@ const styles = createStyles({
 const publicUrl = process.env.PUBLIC_URL;
 function getBase(url: string): string {
   const a = document.createElement('a');
+  a.href = url;
   return a.pathname;
 }
 const base = (typeof publicUrl === 'undefined') ? '' : getBase(publicUrl);
