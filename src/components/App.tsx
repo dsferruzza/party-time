@@ -19,13 +19,20 @@ const styles = createStyles({
   },
 });
 
+const publicUrl = process.env.PUBLIC_URL;
+function getBase(url: string): string {
+  const a = document.createElement('a');
+  return a.pathname;
+}
+const base = (typeof publicUrl === 'undefined') ? '' : getBase(publicUrl);
+
 interface Props extends WithStyles<typeof styles> {}
 
 function App(props: Props) {
   const { classes } = props;
 
   return (
-    <Router>
+    <Router basename={base}>
       <div>
         <CssBaseline />
         <Bar appName={appName} />
