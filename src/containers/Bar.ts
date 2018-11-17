@@ -3,7 +3,13 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import Bar from '../components/Bar';
 import { analyzeEvents, fetchCalendar, parseEvents } from '../lib/calendar';
-import { FetchCalendar, FetchCalendarError, ReceiveCalendar, StoreState } from '../lib/state';
+import { FetchCalendar, FetchCalendarError, MenuAction, ReceiveCalendar, StoreState } from '../lib/state';
+
+function mapStateToProps(state: StoreState) {
+  return {
+    menuOpenned: state.menuOpenned,
+  };
+}
 
 type Action = FetchCalendar | FetchCalendarError | ReceiveCalendar;
 type ThunkResult<R> = ThunkAction<R, StoreState, undefined, Action>;
@@ -28,13 +34,24 @@ function updateCalendar(): ThunkResult<void> {
   }
 }
 
+function toggleMenu(): ThunkAction<void, StoreState, undefined, MenuAction> {
+  return async (dispatch, getState) => {
+    if (getState().menuOpenned) {
+      dispatch({ type: 'CloseMenu' });
+    } else {
+      dispatch({ type: 'OpenMenu' });
+    }
+  }
+}
+
 function mapDispatchToProps(dispatch: MyThunkDispatch) {
   return {
     onReloadClick: () => {
       dispatch({ type: 'FetchCalendar' });
       dispatch(updateCalendar());
     },
+    toggleMenu: () => dispatch(toggleMenu()),
   };
 }
 
-export default connect(null, mapDispatchToProps)(Bar);
+export default connect(mapStateToProps, mapDispatchToProps)(Bar);
