@@ -80,8 +80,6 @@ export function analyzeEvents(es: Event[], timeMin: string): List<ClassifiedDay>
   const holidays = events.filter(e => /^Congés/.test(e.summary));
   const partialTimeOff = events.filter(e => /^Absent/.test(e.summary));
   const classifiedDays = days.map(d => classifyDay(holidays, partialTimeOff, d));
-  console.log(classifiedDays.map(d => ({ day: d.day.toString(), type: d.type })).toArray()); // tslint:disable-line:no-console
-  console.log(holidays.map(e => ({ day: e.startDate.toString(), summary: e.summary })).toArray()); // tslint:disable-line:no-console
   return classifiedDays;
 }
 
