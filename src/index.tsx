@@ -15,7 +15,7 @@ import { emptyStore, reducer } from './lib/state';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['config'],
+  whitelist: ['config', 'events'],
 };
 const persistedReducer = persistReducer(persistConfig, reducer)
 const store = createStore(persistedReducer, emptyStore, applyMiddleware(thunk));

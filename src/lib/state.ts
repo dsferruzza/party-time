@@ -73,6 +73,8 @@ export function reducer(state: StoreState, action: Action): StoreState {
       return { ...state, config: { ...state.config, timeMin: action.timeMin } };
     case 'FetchCalendarError':
       return { ...state, status: { ...state.status, msg: action.msg } };
+    case 'ReceiveCalendar':
+      return { ...state, events: action.events };
     case 'ClearStatus':
       return { ...state, status: { ...state.status, msg: null } };
     case 'OpenMenu':
