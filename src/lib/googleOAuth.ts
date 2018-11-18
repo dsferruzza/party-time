@@ -9,7 +9,7 @@ function getFullBaseUrl(baseUrl: string): string {
   const base = ((baseUrl === '/') ? '' : baseUrl);
   const a = document.createElement('a');
   a.href = '.';
-  if ((a.protocol === 'http:' && a.port === '80') || (a.protocol === 'https:' && a.port === '443')) {
+  if (a.protocol === 'http:' || a.protocol === 'https:') {
     return `${a.protocol}//${a.hostname}${base}`;
   } else {
     return `${a.protocol}//${a.hostname}:${a.port}${base}`;
