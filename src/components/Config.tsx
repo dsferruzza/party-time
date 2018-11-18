@@ -13,9 +13,9 @@ const styles = createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-  onAccessTokenChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onClientIdChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   onTimeMinChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  accessToken: string
+  clientId: string
   timeMin: string
 }
 
@@ -25,8 +25,8 @@ function Config(props: Props) {
   return (
     <div className={classes.container}>
       <FormControl fullWidth={true}>
-        <InputLabel htmlFor="accessToken">Token d'accès à l'API Google</InputLabel>
-        <Input id="accessToken" value={props.accessToken} onChange={props.onAccessTokenChange} />
+        <InputLabel htmlFor="clientId">Identifiant client pour l'accès à l'API Google (client_id)</InputLabel>
+        <Input id="clientId" value={props.clientId} onChange={props.onClientIdChange} />
       </FormControl>
       <FormControl fullWidth={true}>
         <InputLabel htmlFor="timeMin">Date minimum</InputLabel>

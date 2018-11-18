@@ -1,8 +1,10 @@
+import { DateTime } from 'luxon';
 import { connect } from 'react-redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import Bar from '../components/Bar';
 import { analyzeEvents, fetchCalendar, parseEvents } from '../lib/calendar';
+import { getAccessToken } from '../lib/googleOAuth';
 import { FetchCalendar, FetchCalendarError, MenuAction, ReceiveCalendar, StoreState } from '../lib/state';
 
 function mapStateToProps(state: StoreState) {
@@ -17,8 +19,13 @@ type MyThunkDispatch = ThunkDispatch<StoreState, undefined, Action>;
 
 function updateCalendar(): ThunkResult<void> {
   return async (dispatch, getState) => {
-    const accessToken = getState().config.accessToken;
-    if (accessToken !== '') {
+    const clientId = getState().config.clientId;
+    if (clientId !== '') {
+      const currentAccessToken = getState().googleOAuth.accessToken;
+      const currentExpirationDate = DateTime.fromISO(getState().googleOAuth.expiresAt);
+      const baseUrl = getState().baseUrl;
+      const accessToken = getAccessToken(clientId, currentAccessToken, currentExpirationDate, baseUrl);
+
       const timeMin = getState().config.timeMin;
       fetchCalendar(accessToken, timeMin).then((data: string) => {
         const events = parseEvents(data).items;
@@ -29,7 +36,7 @@ function updateCalendar(): ThunkResult<void> {
         dispatch({ type: 'FetchCalendarError', msg })
       });
     } else {
-      dispatch({ type: 'FetchCalendarError', msg: "Le token d'accès est vide !" });
+      dispatch({ type: 'FetchCalendarError', msg: "L'identifiant client est vide !" });
     }
   }
 }

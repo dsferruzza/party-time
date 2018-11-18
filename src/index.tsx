@@ -9,17 +9,20 @@ import thunk from 'redux-thunk';
 import 'typeface-roboto';
 
 import App from './components/App';
+import { storeUrlHash } from './lib/googleOAuth';
 import registerServiceWorker from './lib/registerServiceWorker';
 import { emptyStore, reducer } from './lib/state';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['config', 'events'],
+  whitelist: ['config', 'events', 'googleOAuth'],
 };
 const persistedReducer = persistReducer(persistConfig, reducer)
 const store = createStore(persistedReducer, emptyStore, applyMiddleware(thunk));
-const persistor = persistStore(store)
+const persistor = persistStore(store, undefined, () => {
+  storeUrlHash(store);
+});
 
 ReactDOM.render(
   <Provider store={store}>

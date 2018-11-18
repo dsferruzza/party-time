@@ -5,7 +5,7 @@ import { StoreState } from '../lib/state';
 
 function mapStateToProps(state: StoreState) {
   return {
-    configured: state.config.accessToken !== '',
+    configured: state.config.clientId !== '',
   };
 }
 

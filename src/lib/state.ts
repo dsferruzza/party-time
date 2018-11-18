@@ -1,21 +1,41 @@
+import { DateTime } from 'luxon';
+
 import { Event } from './events';
 
 export interface StoreState {
+  baseUrl: string
   config: {
-    accessToken: string
+    clientId: string
     timeMin: string
   }
   events?: Event[]
+  googleOAuth: {
+    accessToken: string
+    expiresAt: string
+  }
   menuOpenned: boolean
   status: {
     msg: string | null
   }
 }
 
+const publicUrl = process.env.PUBLIC_URL;
+function getBase(url: string): string {
+  const a = document.createElement('a');
+  a.href = url;
+  return a.pathname;
+}
+const baseUrl = (typeof publicUrl === 'undefined' || publicUrl === '') ? '/' : getBase(publicUrl);
+
 export const emptyStore: StoreState = {
+  baseUrl,
   config: {
-    accessToken: '',
+    clientId: '',
     timeMin: '',
+  },
+  googleOAuth: {
+    accessToken: '',
+    expiresAt: DateTime.local().toISO(),
   },
   menuOpenned: false,
   status: {
@@ -23,13 +43,13 @@ export const emptyStore: StoreState = {
   },
 }
 
-export type Action = SetAccessToken | SetTimeMin | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus | OpenMenu | CloseMenu;
-export type ConfigAction = SetAccessToken | SetTimeMin;
+export type Action = SetClientId | SetTimeMin | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus | OpenMenu | CloseMenu | UpdateAccessToken;
+export type ConfigAction = SetClientId | SetTimeMin;
 export type MenuAction = OpenMenu | CloseMenu;
 
-export interface SetAccessToken {
-  type: 'SetAccessToken'
-  accessToken: string
+export interface SetClientId {
+  type: 'SetClientId'
+  clientId: string
 }
 
 export interface SetTimeMin {
@@ -64,11 +84,17 @@ export interface CloseMenu {
   type: 'CloseMenu'
 }
 
+export interface UpdateAccessToken {
+  type: 'UpdateAccessToken'
+  accessToken: string
+  expiresAt: DateTime
+}
+
 export function reducer(state: StoreState, action: Action): StoreState {
   console.log('Reducer', action); // tslint:disable-line:no-console
   switch (action.type) {
-    case 'SetAccessToken':
-      return { ...state, config: { ...state.config, accessToken: action.accessToken } };
+    case 'SetClientId':
+      return { ...state, config: { ...state.config, clientId: action.clientId }, googleOAuth: { ...state.googleOAuth, expiresAt: DateTime.local().toISO() } };
     case 'SetTimeMin':
       return { ...state, config: { ...state.config, timeMin: action.timeMin } };
     case 'FetchCalendarError':
@@ -81,6 +107,8 @@ export function reducer(state: StoreState, action: Action): StoreState {
       return { ...state, menuOpenned: true };
     case 'CloseMenu':
       return { ...state, menuOpenned: false };
+    case 'UpdateAccessToken':
+      return { ...state, googleOAuth: { accessToken: action.accessToken, expiresAt: action.expiresAt.toISO() } };
     default:
       return state;
   }

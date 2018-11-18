@@ -8,7 +8,7 @@ import { nonWorkingDays } from './nonWorkingDays';
 
 Settings.defaultLocale = 'fr';
 
-export function fetchCalendar(accessToken: string, timeMin: string): Promise<string> {
+export async function fetchCalendar(accessToken: string, timeMin: string): Promise<string> {
   const qs = {
     access_token: accessToken,
     maxResults: 2500,
