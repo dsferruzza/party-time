@@ -45,11 +45,11 @@ function computeDays(timeMin: string): List<DateTime> {
   return days;
 }
 
-type DayTypes = "working" | "weekend" | "non-working" | "holiday" | "partial-time-off";
+type DayType = "working" | "weekend" | "non-working" | "holiday" | "partial-time-off";
 
 export interface ClassifiedDay {
   day: DateTime
-  type: DayTypes
+  type: DayType
 }
 
 function classifyDay(holidays: List<EventDay>, partialTimeOff: List<EventDay>, day: DateTime): ClassifiedDay {
