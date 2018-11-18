@@ -25,7 +25,7 @@ function getBase(url: string): string {
   a.href = url;
   return a.pathname;
 }
-const base = (typeof publicUrl === 'undefined') ? '' : getBase(publicUrl);
+const base = (typeof publicUrl === 'undefined' || publicUrl === '') ? '/' : getBase(publicUrl);
 
 interface Props extends WithStyles<typeof styles> {}
 
