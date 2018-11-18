@@ -46,7 +46,8 @@ function computeDays(timeMin: string): List<DateTime> {
 }
 
 type DayTypes = "working" | "weekend" | "non-working" | "holiday" | "partial-time-off";
-interface ClassifiedDay {
+
+export interface ClassifiedDay {
   day: DateTime
   type: DayTypes
 }
@@ -70,7 +71,7 @@ interface EventDay {
   summary: string
 }
 
-export function analyzeEvents(es: Event[], timeMin: string): void {
+export function analyzeEvents(es: Event[], timeMin: string): List<ClassifiedDay> {
   const days = computeDays(timeMin);
   const events: List<EventDay> = List(es).filter(e => e.status === "confirmed").map(e => ({
     startDate: DateTime.fromISO(e.start.dateTime),
@@ -81,4 +82,5 @@ export function analyzeEvents(es: Event[], timeMin: string): void {
   const classifiedDays = days.map(d => classifyDay(holidays, partialTimeOff, d));
   console.log(classifiedDays.map(d => ({ day: d.day.toString(), type: d.type })).toArray()); // tslint:disable-line:no-console
   console.log(holidays.map(e => ({ day: e.startDate.toString(), summary: e.summary })).toArray()); // tslint:disable-line:no-console
+  return classifiedDays;
 }

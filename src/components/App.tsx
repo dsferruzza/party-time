@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Bar from '../containers/Bar';
 import Config from '../containers/Config';
 import Home from '../containers/Home';
+import List from '../containers/List';
 import Menu from '../containers/Menu';
 import Status from '../containers/Status';
 
@@ -42,6 +43,7 @@ function App(props: Props) {
         <div className={classes.content}>
           <Route path="/" exact={true} component={Home} />
           <Route path="/config" component={Config} />
+          <Route path="/list" component={List} />
         </div>
 
         <Status />
