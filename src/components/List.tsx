@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import * as Immutable from 'immutable';
 import * as React from 'react';
 
-import { ClassifiedDay } from '../lib/calendar';
+import { ClassifiedDay, dayTypeColor } from '../lib/calendar';
 
 const styles = createStyles({
 });
@@ -30,9 +30,9 @@ function List(props: Props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.days.map(d => {
+          {props.days.reverse().map(d => {
             return (
-              <TableRow key={d.day.toISODate()}>
+              <TableRow key={d.day.toISODate()} style={{ backgroundColor: dayTypeColor(d.type) }}>
                 <TableCell>{d.day.toFormat('dd/LL/yyyy')}</TableCell>
                 <TableCell>{d.type}</TableCell>
               </TableRow>

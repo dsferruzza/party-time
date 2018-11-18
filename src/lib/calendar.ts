@@ -84,3 +84,18 @@ export function analyzeEvents(es: Event[], timeMin: string): List<ClassifiedDay>
   console.log(holidays.map(e => ({ day: e.startDate.toString(), summary: e.summary })).toArray()); // tslint:disable-line:no-console
   return classifiedDays;
 }
+
+export function dayTypeColor(type: DayType): string {
+  switch(type) {
+    case 'working':
+      return 'skyblue';
+    case 'partial-time-off':
+      return 'gold';
+    case 'holiday':
+      return 'palegreen';
+    case 'weekend':
+      return 'gray';
+    case 'non-working':
+      return 'silver';
+  }
+}
