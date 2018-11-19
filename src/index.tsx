@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 import 'typeface-roboto';
 
 import App from './components/App';
-import { storeUrlHash } from './lib/googleOAuth';
+import { installAuthCallback } from './lib/googleOAuth';
 import registerServiceWorker from './lib/registerServiceWorker';
 import { emptyStore, reducer } from './lib/state';
 
@@ -20,9 +20,7 @@ const persistConfig = {
 };
 const persistedReducer = persistReducer(persistConfig, reducer)
 const store = createStore(persistedReducer, emptyStore, applyMiddleware(thunk));
-const persistor = persistStore(store, undefined, () => {
-  storeUrlHash(store);
-});
+const persistor = persistStore(store);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -33,3 +31,5 @@ ReactDOM.render(
   document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();
+
+installAuthCallback();
