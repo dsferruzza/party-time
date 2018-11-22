@@ -1,3 +1,4 @@
+import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -7,6 +8,7 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import HomeIcon from '@material-ui/icons/Home';
 import ListIcon from '@material-ui/icons/List';
 import SettingsIcon from '@material-ui/icons/Settings';
+import { DateTime } from 'luxon';
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -29,6 +31,7 @@ const styles = createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
+  lastFetch: DateTime | null
   open: boolean
   onOpen: () => void
   onClose: () => void
@@ -60,6 +63,10 @@ function Menu(props: Props) {
                 <ListItemText primary="Liste des jours" />
               </ListItem>
             </NavLink>
+          </List>
+          <Divider />
+          <List>
+            <ListItem><ListItemText primary={`Dernière récupération : ${(props.lastFetch !== null) ? props.lastFetch.toFormat('dd/LL/yyyy HH:mm:ss') : 'jamais'}`} /></ListItem>
           </List>
         </div>
       </SwipeableDrawer>

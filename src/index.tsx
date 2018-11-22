@@ -16,7 +16,7 @@ import { emptyStore, reducer } from './lib/state';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['config', 'events', 'googleOAuth'],
+  whitelist: ['config', 'events', 'googleOAuth', 'lastFetch'],
 };
 const persistedReducer = persistReducer(persistConfig, reducer)
 const store = createStore(persistedReducer, emptyStore, applyMiddleware(thunk));

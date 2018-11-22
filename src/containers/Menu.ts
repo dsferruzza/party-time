@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -6,6 +7,7 @@ import { MenuAction, StoreState } from '../lib/state';
 
 function mapStateToProps(state: StoreState) {
   return {
+    lastFetch: (state.lastFetch !== null) ? DateTime.fromISO(state.lastFetch) : null,
     open: state.menuOpenned,
   };
 }

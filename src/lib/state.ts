@@ -13,6 +13,7 @@ export interface StoreState {
     accessToken: string
     expiresAt: string
   }
+  lastFetch: string | null
   menuOpenned: boolean
   status: {
     msg: string | null
@@ -37,6 +38,7 @@ export const emptyStore: StoreState = {
     accessToken: '',
     expiresAt: DateTime.local().toISO(),
   },
+  lastFetch: null,
   menuOpenned: false,
   status: {
     msg: null
@@ -100,7 +102,7 @@ export function reducer(state: StoreState, action: Action): StoreState {
     case 'FetchCalendarError':
       return { ...state, status: { ...state.status, msg: action.msg } };
     case 'ReceiveCalendar':
-      return { ...state, events: action.events };
+      return { ...state, events: action.events, lastFetch: DateTime.local().toISO() };
     case 'ClearStatus':
       return { ...state, status: { ...state.status, msg: null } };
     case 'OpenMenu':
