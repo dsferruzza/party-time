@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistReducer, persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
@@ -19,7 +20,7 @@ const persistConfig = {
   whitelist: ['config', 'events', 'googleOAuth', 'lastFetch'],
 };
 const persistedReducer = persistReducer(persistConfig, reducer)
-const store = createStore(persistedReducer, emptyStore, applyMiddleware(thunk));
+const store = createStore(persistedReducer, emptyStore, composeWithDevTools(applyMiddleware(thunk)));
 const persistor = persistStore(store);
 
 ReactDOM.render(
