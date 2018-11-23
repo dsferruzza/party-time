@@ -99,7 +99,6 @@ export interface AppUpdated {
 }
 
 export function reducer(state: StoreState, action: Action): StoreState {
-  console.log('Reducer', action); // tslint:disable-line:no-console
   switch (action.type) {
     case 'SetClientId':
       return { ...state, config: { ...state.config, clientId: action.clientId }, googleOAuth: { ...state.googleOAuth, expiresAt: DateTime.local().toISO() } };
