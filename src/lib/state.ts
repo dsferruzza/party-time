@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { Event } from './events';
 
 export interface StoreState {
+  appUpdated: boolean
   baseUrl: string
   config: {
     clientId: string
@@ -29,6 +30,7 @@ function getBase(url: string): string {
 const baseUrl = (typeof publicUrl === 'undefined' || publicUrl === '') ? '/' : getBase(publicUrl);
 
 export const emptyStore: StoreState = {
+  appUpdated: false,
   baseUrl,
   config: {
     clientId: '',
@@ -45,7 +47,7 @@ export const emptyStore: StoreState = {
   },
 }
 
-export type Action = SetClientId | SetTimeMin | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus | OpenMenu | CloseMenu | UpdateAccessToken;
+export type Action = SetClientId | SetTimeMin | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus | OpenMenu | CloseMenu | UpdateAccessToken | AppUpdated;
 export type ConfigAction = SetClientId | SetTimeMin;
 export type MenuAction = OpenMenu | CloseMenu;
 
@@ -92,6 +94,10 @@ export interface UpdateAccessToken {
   expiresAt: DateTime
 }
 
+export interface AppUpdated {
+  type: 'AppUpdated'
+}
+
 export function reducer(state: StoreState, action: Action): StoreState {
   console.log('Reducer', action); // tslint:disable-line:no-console
   switch (action.type) {
@@ -111,6 +117,8 @@ export function reducer(state: StoreState, action: Action): StoreState {
       return { ...state, menuOpenned: false };
     case 'UpdateAccessToken':
       return { ...state, googleOAuth: { accessToken: action.accessToken, expiresAt: action.expiresAt.toISO() } };
+    case 'AppUpdated':
+      return { ...state, appUpdated: true };
     default:
       return state;
   }

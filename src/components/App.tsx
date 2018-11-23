@@ -9,6 +9,7 @@ import Home from '../containers/Home';
 import List from '../containers/List';
 import Menu from '../containers/Menu';
 import Status from '../containers/Status';
+import UpdateWarning from '../containers/UpdateWarning';
 
 const appName = 'Party Time';
 const styles = createStyles({
@@ -47,6 +48,7 @@ function App(props: Props) {
         </div>
 
         <Status />
+        <UpdateWarning />
       </div>
     </Router>
   );
