@@ -57,10 +57,16 @@ function Menu(props: Props) {
                 <ListItemText primary="Configuration" />
               </ListItem>
             </NavLink>
-            <NavLink to="/list" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
+            <NavLink to="/passed" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
               <ListItem button={true}>
                 <ListItemIcon><ListIcon /></ListItemIcon>
-                <ListItemText primary="Liste des jours" />
+                <ListItemText primary="Jours passés" />
+              </ListItem>
+            </NavLink>
+            <NavLink to="/coming" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
+              <ListItem button={true}>
+                <ListItemIcon><ListIcon /></ListItemIcon>
+                <ListItemText primary="Jours à venir" />
               </ListItem>
             </NavLink>
           </List>

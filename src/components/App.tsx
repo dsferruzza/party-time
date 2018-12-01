@@ -5,9 +5,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Bar from '../containers/Bar';
 import Config from '../containers/Config';
+import FutureList from '../containers/FutureList';
 import Home from '../containers/Home';
-import List from '../containers/List';
 import Menu from '../containers/Menu';
+import PassedList from '../containers/PassedList';
 import Status from '../containers/Status';
 import UpdateWarning from '../containers/UpdateWarning';
 
@@ -44,7 +45,8 @@ function App(props: Props) {
         <div className={classes.content}>
           <Route path="/" exact={true} component={Home} />
           <Route path="/config" component={Config} />
-          <Route path="/list" component={List} />
+          <Route path="/passed" component={PassedList} />
+          <Route path="/coming" component={FutureList} />
         </div>
 
         <Status />
