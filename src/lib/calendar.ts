@@ -51,27 +51,30 @@ export interface ClassifiedDay {
   type: DayType
 }
 
-function classifyDay(holidays: List<EventDay>, partialTimeOff: List<EventDay>, day: DateTime): ClassifiedDay {
+function classifyDay(holidays: List<DayOffEvent>, partialTimeOff: List<DayOffEvent>, day: DateTime): ClassifiedDay {
+  const ajustedDay = day.set({ hour: 12 });
   if (day.weekday >= 6) {
     return { day, type: "weekend" };
   } else if (nonWorkingDays(day.year).find(d => d.month === day.month && d.day === day.day)) {
     return { day, type: "non-working" };
-  } else if (holidays.find(d => d.startDate.year === day.year && d.startDate.month === day.month && d.startDate.day === day.day)) {
+  } else if (holidays.find(d => Interval.fromDateTimes(d.startDate, d.endDate).contains(ajustedDay))) {
     return { day, type: "holiday" };
-  } else if (partialTimeOff.find(d => d.startDate.year === day.year && d.startDate.month === day.month && d.startDate.day === day.day)) {
+  } else if (partialTimeOff.find(d => Interval.fromDateTimes(d.startDate, d.endDate).contains(ajustedDay))) {
     return { day, type: "partial-time-off" };
   } else {
     return { day, type: "working" }
   }
 }
 
-interface EventDay {
+interface DayOffEvent {
+  endDate: DateTime
   startDate: DateTime
   summary: string
 }
 
 export function analyzeEvents(es: Event[], timeMin: string): List<ClassifiedDay> {
-  const events: List<EventDay> = List(es).filter(e => e.status === "confirmed").map(e => ({
+  const events: List<DayOffEvent> = List(es).filter(e => e.status === "confirmed").map(e => ({
+    endDate: DateTime.fromISO(e.end.dateTime),
     startDate: DateTime.fromISO(e.start.dateTime),
     summary: e.summary,
   }));
