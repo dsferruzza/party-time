@@ -37,10 +37,9 @@ export function parseEvents(payload: string): Events {
   return json as Events;
 }
 
-function computeDays(timeMin: string): List<DateTime> {
+function computeDays(timeMin: string, timeMax: DateTime): List<DateTime> {
   const beginning = DateTime.fromISO(timeMin);
-  const currentDay = DateTime.local();
-  const interval = Interval.fromDateTimes(beginning, currentDay);
+  const interval = Interval.fromDateTimes(beginning, timeMax);
   const days = List(interval.splitBy(Duration.fromObject({ days: 1 }))).map(i => i.start);
   return days;
 }
@@ -72,13 +71,14 @@ interface EventDay {
 }
 
 export function analyzeEvents(es: Event[], timeMin: string): List<ClassifiedDay> {
-  const days = computeDays(timeMin);
   const events: List<EventDay> = List(es).filter(e => e.status === "confirmed").map(e => ({
     startDate: DateTime.fromISO(e.start.dateTime),
     summary: e.summary,
   }));
   const holidays = events.filter(e => /^Congés/.test(e.summary));
   const partialTimeOff = events.filter(e => /^Absent/.test(e.summary));
+  const timeMax = holidays.concat(partialTimeOff).reduce((acc, cur) => (cur.endDate > acc) ? cur.endDate : acc, DateTime.local());
+  const days = computeDays(timeMin, timeMax);
   const classifiedDays = days.map(d => classifyDay(holidays, partialTimeOff, d));
   return classifiedDays;
 }
