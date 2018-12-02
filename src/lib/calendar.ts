@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import { List } from 'immutable';
+import { List, Map, Set } from 'immutable';
 import { DateTime, Duration, Interval, Settings } from 'luxon';
 import * as queryString from 'query-string';
 
@@ -80,7 +80,7 @@ export function analyzeEvents(es: Event[], timeMin: string): List<ClassifiedDay>
   }));
   const holidays = events.filter(e => /^Congés/.test(e.summary));
   const partialTimeOff = events.filter(e => /^Absent/.test(e.summary));
-  const timeMax = holidays.concat(partialTimeOff).reduce((acc, cur) => (cur.endDate > acc) ? cur.endDate : acc, DateTime.local());
+  const timeMax = holidays.concat(partialTimeOff).reduce((acc, cur) => (cur.endDate > acc) ? cur.endDate : acc, DateTime.local()).endOf('month');
   const days = computeDays(timeMin, timeMax);
   const classifiedDays = days.map(d => classifyDay(holidays, partialTimeOff, d));
   return classifiedDays;
@@ -99,4 +99,29 @@ export function dayTypeColor(type: DayType): string {
     case 'non-working':
       return 'silver';
   }
+}
+
+export interface MonthSummary {
+  month: DateTime
+  totalWorkingDays: number
+  workedDays: number
+  holidays: number
+  partialTimeOffDays: number
+}
+
+export function monthSummary(classifiedDays: List<ClassifiedDay>): Map<DateTime, MonthSummary> {
+  const grouped: Map<DateTime, Set<ClassifiedDay>> = classifiedDays.groupBy(d => d.day.startOf('month')).map(v => Set(v.values())).toMap();
+  return grouped.map((days, month) => {
+    const totalWorkingDays = days.count(d => d.type !== 'weekend' && d.type !== 'non-working');
+    const holidays = days.count(d => d.type === 'holiday');
+    const partialTimeOffDays = days.count(d => d.type === 'partial-time-off');
+    const workedDays = totalWorkingDays - holidays - partialTimeOffDays;
+    return {
+      holidays,
+      month,
+      partialTimeOffDays,
+      totalWorkingDays,
+      workedDays,
+    };
+  });
 }

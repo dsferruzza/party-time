@@ -4,6 +4,7 @@ import * as React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Bar from '../containers/Bar';
+import ByMonth from '../containers/ByMonth';
 import Config from '../containers/Config';
 import FutureList from '../containers/FutureList';
 import Home from '../containers/Home';
@@ -47,6 +48,7 @@ function App(props: Props) {
           <Route path="/config" component={Config} />
           <Route path="/passed" component={PassedList} />
           <Route path="/coming" component={FutureList} />
+          <Route path="/bymonth" component={ByMonth} />
         </div>
 
         <Status />

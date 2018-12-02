@@ -7,6 +7,7 @@ import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import HomeIcon from '@material-ui/icons/Home';
 import ListIcon from '@material-ui/icons/List';
+import PollIcon from '@material-ui/icons/Poll';
 import SettingsIcon from '@material-ui/icons/Settings';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { DateTime } from 'luxon';
@@ -68,6 +69,12 @@ function Menu(props: Props) {
               <ListItem button={true}>
                 <ListItemIcon><TrendingUpIcon /></ListItemIcon>
                 <ListItemText primary="Jours à venir" />
+              </ListItem>
+            </NavLink>
+            <NavLink to="/bymonth" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
+              <ListItem button={true}>
+                <ListItemIcon><PollIcon /></ListItemIcon>
+                <ListItemText primary="Analyse par mois" />
               </ListItem>
             </NavLink>
           </List>

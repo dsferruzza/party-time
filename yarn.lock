@@ -87,6 +87,11 @@
   dependencies:
     "@babel/runtime" "7.1.2"
 
+"@types/chartist@0.9.43":
+  version "0.9.43"
+  resolved "https://registry.yarnpkg.com/@types/chartist/-/chartist-0.9.43.tgz#bb53bee89c4a24f8142d4749997c29aea01c080a"
+  integrity sha512-NBIR0iXoBUxz69lbuqnUU22/TyMydtNXiA7/OU66zkP9D7eNr8oCf8+YR63DJUDbVwNuWHZM22C4XZlwz0IV1w==
+
 "@types/history@*":
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
@@ -1728,6 +1733,11 @@ chardet@^0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.4.2.tgz#b5473b33dc97c424e5d98dc87d55d4d8a29c8bf2"
   integrity sha1-tUc7M9yXxCTl2Y3IfVXU2KKci/I=
+
+chartist@0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/chartist/-/chartist-0.11.0.tgz#84ba5e05490d096d93dcfa9343ebc31ef6a3bd28"
+  integrity sha1-hLpeBUkNCW2T3PqTQ+vDHvajvSg=
 
 chokidar@^1.6.0, chokidar@^1.7.0:
   version "1.7.0"

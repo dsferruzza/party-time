@@ -11,6 +11,7 @@
   "dependencies": {
     "@material-ui/core": "3.6.1",
     "@material-ui/icons": "3.0.1",
+    "@types/chartist": "0.9.43",
     "@types/jest": "23.3.10",
     "@types/luxon": "1.4.1",
     "@types/node": "10.12.11",
@@ -19,6 +20,7 @@
     "@types/react-dom": "16.0.10",
     "@types/react-redux": "6.0.10",
     "@types/react-router-dom": "4.3.1",
+    "chartist": "0.11.0",
     "cross-fetch": "2.2.3",
     "immutable": "4.0.0-rc.12",
     "luxon": "1.8.2",
