@@ -8,6 +8,7 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import HomeIcon from '@material-ui/icons/Home';
 import ListIcon from '@material-ui/icons/List';
 import SettingsIcon from '@material-ui/icons/Settings';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { DateTime } from 'luxon';
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
@@ -65,7 +66,7 @@ function Menu(props: Props) {
             </NavLink>
             <NavLink to="/coming" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
               <ListItem button={true}>
-                <ListItemIcon><ListIcon /></ListItemIcon>
+                <ListItemIcon><TrendingUpIcon /></ListItemIcon>
                 <ListItemText primary="Jours à venir" />
               </ListItem>
             </NavLink>
