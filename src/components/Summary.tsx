@@ -64,7 +64,7 @@ function Summary(props: Props) {
     });
     const isExpanded = k === 0;
     const daysOffleft = ys.totalPartialTimeOffDays - ys.partialTimeOffDays;
-    const balance = (k === 0) ? <Typography>Solde de jours off temps partiel au {DateTime.local().toFormat('dd/LL/yyyy')} : <strong>{(props.daysOffBalance > 0) ? `+${props.daysOffBalance}` : props.daysOffBalance}</strong></Typography> : '';
+    const balance = (k === 0) ? <Typography>Jours off temps partiel au {DateTime.local().toFormat('dd/LL/yyyy')} : <strong>{(props.daysOffBalance > 0) ? `+${props.daysOffBalance}` : props.daysOffBalance}</strong></Typography> : '';
 
     return (
       <ExpansionPanel key={ys.startDate.toISO()} defaultExpanded={isExpanded}>
