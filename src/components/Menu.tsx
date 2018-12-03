@@ -71,10 +71,10 @@ function Menu(props: Props) {
                 <ListItemText primary="Jours à venir" />
               </ListItem>
             </NavLink>
-            <NavLink to="/bymonth" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
+            <NavLink to="/summary" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
               <ListItem button={true}>
                 <ListItemIcon><PollIcon /></ListItemIcon>
-                <ListItemText primary="Analyse par mois" />
+                <ListItemText primary="Analyse" />
               </ListItem>
             </NavLink>
           </List>

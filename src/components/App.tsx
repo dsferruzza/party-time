@@ -4,13 +4,13 @@ import * as React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Bar from '../containers/Bar';
-import ByMonth from '../containers/ByMonth';
 import Config from '../containers/Config';
 import FutureList from '../containers/FutureList';
 import Home from '../containers/Home';
 import Menu from '../containers/Menu';
 import PassedList from '../containers/PassedList';
 import Status from '../containers/Status';
+import Summary from '../containers/Summary';
 import UpdateWarning from '../containers/UpdateWarning';
 
 const appName = 'Party Time';
@@ -48,7 +48,7 @@ function App(props: Props) {
           <Route path="/config" component={Config} />
           <Route path="/passed" component={PassedList} />
           <Route path="/coming" component={FutureList} />
-          <Route path="/bymonth" component={ByMonth} />
+          <Route path="/summary" component={Summary} />
         </div>
 
         <Status />

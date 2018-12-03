@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import { List, Map, Set } from 'immutable';
+import { List } from 'immutable';
 import { DateTime, Duration, Interval, Settings } from 'luxon';
 import * as queryString from 'query-string';
 
@@ -37,9 +37,8 @@ export function parseEvents(payload: string): Events {
   return json as Events;
 }
 
-function computeDays(timeMin: string, timeMax: DateTime): List<DateTime> {
-  const beginning = DateTime.fromISO(timeMin);
-  const interval = Interval.fromDateTimes(beginning, timeMax);
+function computeDays(timeMin: DateTime, timeMax: DateTime): List<DateTime> {
+  const interval = Interval.fromDateTimes(timeMin, timeMax);
   const days = List(interval.splitBy(Duration.fromObject({ days: 1 }))).map(i => i.start);
   return days;
 }
@@ -72,7 +71,7 @@ interface DayOffEvent {
   summary: string
 }
 
-export function analyzeEvents(es: Event[], timeMin: string): List<ClassifiedDay> {
+export function analyzeEvents(es: Event[], timeMinStr: string): List<ClassifiedDay> {
   const events: List<DayOffEvent> = List(es).filter(e => e.status === "confirmed").map(e => ({
     endDate: DateTime.fromISO(e.end.dateTime),
     startDate: DateTime.fromISO(e.start.dateTime),
@@ -80,7 +79,10 @@ export function analyzeEvents(es: Event[], timeMin: string): List<ClassifiedDay>
   }));
   const holidays = events.filter(e => /^Congés/.test(e.summary));
   const partialTimeOff = events.filter(e => /^Absent/.test(e.summary));
-  const timeMax = holidays.concat(partialTimeOff).reduce((acc, cur) => (cur.endDate > acc) ? cur.endDate : acc, DateTime.local()).endOf('month');
+  const timeMin = DateTime.fromISO(timeMinStr);
+  const eventTimeMax = holidays.concat(partialTimeOff).reduce((acc, cur) => (cur.endDate > acc) ? cur.endDate : acc, DateTime.local()).endOf('month');
+  const potentialTimeMax = timeMin.set({ year: eventTimeMax.get('year') }).minus({ days: 1 });
+  const timeMax = (potentialTimeMax >= eventTimeMax) ? potentialTimeMax : potentialTimeMax.plus({ years: 1 });
   const days = computeDays(timeMin, timeMax);
   const classifiedDays = days.map(d => classifyDay(holidays, partialTimeOff, d));
   return classifiedDays;
@@ -109,19 +111,60 @@ export interface MonthSummary {
   partialTimeOffDays: number
 }
 
-export function monthSummary(classifiedDays: List<ClassifiedDay>): Map<DateTime, MonthSummary> {
-  const grouped: Map<DateTime, Set<ClassifiedDay>> = classifiedDays.groupBy(d => d.day.startOf('month')).map(v => Set(v.values())).toMap();
-  return grouped.map((days, month) => {
+export function monthSummary(classifiedDays: List<ClassifiedDay>): List<MonthSummary> {
+  const grouped = classifiedDays.groupBy(d => d.day.startOf('month').toISO()).map(v => List(v.values()));
+  const withSummary = grouped.map((days, monthStr) => {
     const totalWorkingDays = days.count(d => d.type !== 'weekend' && d.type !== 'non-working');
     const holidays = days.count(d => d.type === 'holiday');
     const partialTimeOffDays = days.count(d => d.type === 'partial-time-off');
     const workedDays = totalWorkingDays - holidays - partialTimeOffDays;
     return {
       holidays,
-      month,
+      month: DateTime.fromISO(monthStr),
       partialTimeOffDays,
       totalWorkingDays,
       workedDays,
     };
   });
+  return List(withSummary.values());
+}
+
+export interface YearSummary {
+  holidays: number
+  monthSummaries: List<MonthSummary>
+  partialTimeOffDays: number
+  startDate: DateTime
+  totalPartialTimeOffDays: number
+  totalWorkingDays: number
+  workedDays: number
+}
+
+export function yearSummary(classifiedDays: List<ClassifiedDay>, timeMin: DateTime, dueWorkDays: number): List<YearSummary> {
+  const diffToLowerYear = timeMin.diff(timeMin.startOf('year'));
+  const grouped = classifiedDays.groupBy(d => d.day.minus(diffToLowerYear).get('year')).map(v => List(v.values()));
+  const withSummary = grouped.map((days, startYearStr) => {
+    const totalWorkingDays = days.count(d => d.type !== 'weekend' && d.type !== 'non-working');
+    const holidays = days.count(d => d.type === 'holiday');
+    const partialTimeOffDays = days.count(d => d.type === 'partial-time-off');
+    const workedDays = totalWorkingDays - holidays - partialTimeOffDays;
+    const totalPartialTimeOffDays = totalWorkingDays - dueWorkDays;
+    const ms = monthSummary(days);
+    return {
+      holidays,
+      monthSummaries: ms,
+      partialTimeOffDays,
+      startDate: timeMin.set({ year: startYearStr }),
+      totalPartialTimeOffDays,
+      totalWorkingDays,
+      workedDays,
+    };
+  });
+  return List(withSummary.values());
+}
+
+export function daysOffBalance(startDate: DateTime, totalPartialTimeOffDays: number, days: List<ClassifiedDay>): number {
+  const daysInYear = Math.floor(startDate.diff(startDate.plus({ years: 1 }).minus({ days: 1 }), 'days').negate().get('days'));
+  const passedDays = Math.floor(startDate.diffNow('days').negate().get('days'));
+  const expectedDaysOff = Math.floor(totalPartialTimeOffDays * passedDays / daysInYear);
+  return expectedDaysOff - days.count(d => d.type === 'partial-time-off');
 }
