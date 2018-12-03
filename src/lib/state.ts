@@ -7,6 +7,7 @@ export interface StoreState {
   baseUrl: string
   config: {
     clientId: string
+    dueWorkDays: number
     timeMin: string
   }
   events?: Event[]
@@ -34,6 +35,7 @@ export const emptyStore: StoreState = {
   baseUrl,
   config: {
     clientId: '',
+    dueWorkDays: 218,
     timeMin: '',
   },
   googleOAuth: {
@@ -47,13 +49,18 @@ export const emptyStore: StoreState = {
   },
 }
 
-export type Action = SetClientId | SetTimeMin | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus | OpenMenu | CloseMenu | UpdateAccessToken | AppUpdated;
-export type ConfigAction = SetClientId | SetTimeMin;
+export type Action = SetClientId | SetDueWorkDays | SetTimeMin | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus | OpenMenu | CloseMenu | UpdateAccessToken | AppUpdated;
+export type ConfigAction = SetClientId | SetDueWorkDays | SetTimeMin;
 export type MenuAction = OpenMenu | CloseMenu;
 
 export interface SetClientId {
   type: 'SetClientId'
   clientId: string
+}
+
+export interface SetDueWorkDays {
+  type: 'SetDueWorkDays'
+  dueWorkDays: number
 }
 
 export interface SetTimeMin {
@@ -102,6 +109,8 @@ export function reducer(state: StoreState, action: Action): StoreState {
   switch (action.type) {
     case 'SetClientId':
       return { ...state, config: { ...state.config, clientId: action.clientId }, googleOAuth: { ...state.googleOAuth, expiresAt: DateTime.local().toISO() } };
+    case 'SetDueWorkDays':
+      return { ...state, config: { ...state.config, dueWorkDays: action.dueWorkDays } };
     case 'SetTimeMin':
       return { ...state, config: { ...state.config, timeMin: action.timeMin } };
     case 'FetchCalendarError':
