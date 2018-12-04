@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import Bar from '../components/Bar';
-import { analyzeEvents, fetchCalendar, parseEvents } from '../lib/calendar';
+import { fetchCalendar, parseEvents } from '../lib/calendar';
 import { getAccessToken } from '../lib/googleOAuth';
 import { FetchCalendar, FetchCalendarError, MenuAction, ReceiveCalendar, StoreState, UpdateAccessToken } from '../lib/state';
 
@@ -32,7 +32,6 @@ function updateCalendar(): ThunkResult<void> {
         const timeMin = getState().config.timeMin;
         fetchCalendar(accessToken, timeMin).then((data: string) => {
           const events = parseEvents(data).items;
-          analyzeEvents(events, timeMin);
           dispatch({ type: 'ReceiveCalendar', calendarPayload: data, events });
         }, (error: Error | string) => {
           const msg: string = (error instanceof Error) ? `${error.name}: ${error.message}` : error;
