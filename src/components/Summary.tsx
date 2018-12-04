@@ -8,13 +8,15 @@ import Grid from '@material-ui/core/Grid';
 import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import * as Chartist from 'chartist';
 import { List as ImmutableList } from 'immutable';
 import { DateTime } from 'luxon';
 import * as React from 'react';
 
 import { YearSummary } from '../lib/calendar';
+import './chartsColors.css';
+import { LineChart } from './LineChart';
 import { PieChart } from './PieChart';
-import './pieChartColors.css';
 
 const styles = createStyles({
 });
@@ -65,6 +67,33 @@ function Summary(props: Props) {
     const isExpanded = k === 0;
     const daysOffleft = ys.totalPartialTimeOffDays - ys.partialTimeOffDays;
     const balance = (k === 0) ? <Typography>Jours off temps partiel au {DateTime.local().toFormat('dd/LL/yyyy')} : <strong>{(props.daysOffBalance > 0) ? `+${props.daysOffBalance}` : props.daysOffBalance}</strong></Typography> : '';
+    const partialTimeOffDaysGraphOption = {
+      axisX: {
+        labelInterpolationFnc: (value: number) => {
+          return DateTime.fromMillis(value).toFormat('d LLL');
+        },
+        scaleMinSpace: 40,
+        type: Chartist.AutoScaleAxis,
+      },
+      height: 300,
+      series: {
+        'earnedPartialTimeOffDaysSeries': {
+          showArea: true,
+        },
+      },
+      showPoint: false,
+    };
+    const todaySeries = [
+      { x: DateTime.local(), y: 0 },
+      { x: DateTime.local().plus({ milliseconds: 1 }), y: ys.totalPartialTimeOffDays },
+    ];
+    const partialTimeOffDaysGraphData = {
+      series: [
+        { name: 'earnedPartialTimeOffDaysSeries', data: ys.earnedPartialTimeOffDaysSeries.toArray() },
+        { name: 'consumedPartialTimeOffDaysSeries', data: ys.consumedPartialTimeOffDaysSeries.toArray() },
+        { name: 'today', data: todaySeries },
+      ],
+    };
 
     return (
       <ExpansionPanel key={ys.startDate.toISO()} defaultExpanded={isExpanded}>
@@ -81,6 +110,14 @@ function Summary(props: Props) {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Grid container={true} spacing={16}>
+            <Grid item={true} xs={12}>
+              <Card>
+                <CardHeader title="Jours off temps partiel gagnés/dépensés" />
+                <CardContent>
+                  <LineChart className="ct-party-time" data={partialTimeOffDaysGraphData} options={partialTimeOffDaysGraphOption} />
+                </CardContent>
+              </Card>
+            </Grid>
             {cards}
           </Grid>
         </ExpansionPanelDetails>

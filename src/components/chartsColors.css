@@ -1,0 +1,32 @@
+.ct-party-time .ct-series-a .ct-slice-donut {
+  stroke: skyblue;
+}
+
+.ct-party-time .ct-series-b .ct-slice-donut {
+  stroke: gold;
+}
+
+.ct-party-time .ct-series-c .ct-slice-donut {
+  stroke: palegreen;
+}
+
+.ct-party-time .ct-line {
+  stroke-width: 3px;
+}
+
+.ct-party-time .ct-series-a .ct-area {
+  fill: grey;
+}
+
+.ct-party-time .ct-series-a .ct-line {
+  stroke: black;
+}
+
+.ct-party-time .ct-series-b .ct-line {
+  stroke: gold;
+}
+
+.ct-party-time .ct-series-c .ct-line {
+  stroke: green;
+  stroke-width: 1px;
+}

@@ -130,6 +130,8 @@ export function monthSummary(classifiedDays: List<ClassifiedDay>): List<MonthSum
 }
 
 export interface YearSummary {
+  consumedPartialTimeOffDaysSeries: List<Point>
+  earnedPartialTimeOffDaysSeries: List<Point>
   holidays: number
   monthSummaries: List<MonthSummary>
   partialTimeOffDays: number
@@ -137,6 +139,45 @@ export interface YearSummary {
   totalPartialTimeOffDays: number
   totalWorkingDays: number
   workedDays: number
+}
+
+export interface Point {
+  x: DateTime
+  y: number
+}
+
+function generateEarnedPartialTimeOffDaysSeries(days: List<ClassifiedDay>, totalPartialTimeOffDays: number): List<Point> {
+  const sortedDays = days.sort((a, b) => {
+    if (a.day < b.day) {
+      return -1;
+    } else if (a.day > b.day) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  const numberOfDays = sortedDays.count();
+  const gainPerDay = totalPartialTimeOffDays / numberOfDays;
+  return sortedDays.reduce((acc, cur) => ({
+    nextValue: acc.nextValue + gainPerDay,
+    series: acc.series.push({ x: cur.day, y: acc.nextValue }),
+  }), { series: List(), nextValue: 0 }).series;
+}
+
+function generateConsumedPartialTimeOffDaysSeries(days: List<ClassifiedDay>): List<Point> {
+  const sortedDays = days.sort((a, b) => {
+    if (a.day < b.day) {
+      return -1;
+    } else if (a.day > b.day) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  return sortedDays.reduce((acc, cur) => ({
+    nextValue: acc.nextValue + ((cur.type === 'partial-time-off') ? 1 : 0),
+    series: acc.series.push({ x: cur.day, y: acc.nextValue }),
+  }), { series: List(), nextValue: 0 }).series;
 }
 
 export function yearSummary(classifiedDays: List<ClassifiedDay>, timeMin: DateTime, dueWorkDays: number): List<YearSummary> {
@@ -149,7 +190,11 @@ export function yearSummary(classifiedDays: List<ClassifiedDay>, timeMin: DateTi
     const workedDays = totalWorkingDays - holidays - partialTimeOffDays;
     const totalPartialTimeOffDays = totalWorkingDays - dueWorkDays;
     const ms = monthSummary(days);
+    const earnedPartialTimeOffDaysSeries = generateEarnedPartialTimeOffDaysSeries(days, totalPartialTimeOffDays);
+    const consumedPartialTimeOffDaysSeries = generateConsumedPartialTimeOffDaysSeries(days);
     return {
+      consumedPartialTimeOffDaysSeries,
+      earnedPartialTimeOffDaysSeries,
       holidays,
       monthSummaries: ms,
       partialTimeOffDays,
