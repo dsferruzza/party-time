@@ -1,4 +1,4 @@
-import fetch from 'cross-fetch';
+import { fetch } from 'cross-fetch';
 import { List } from 'immutable';
 import { DateTime, Duration, Interval, Settings } from 'luxon';
 import * as queryString from 'query-string';
