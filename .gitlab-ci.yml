@@ -1,7 +1,6 @@
 variables:
   DEBIAN_FRONTEND: noninteractive
   NODE_VERSION: 11
-  URL: https://dsferruzza.gitlab.io/party-time
 
 .yarn_ready: &yarn
   image: node:$NODE_VERSION
@@ -31,7 +30,7 @@ pages:
   stage: deploy
   environment:
     name: prod
-    url: $URL
+    url: $PUBLIC_URL
   variables:
     GIT_STRATEGY: none
   script:
