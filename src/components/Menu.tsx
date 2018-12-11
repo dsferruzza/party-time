@@ -42,6 +42,27 @@ interface Props extends WithStyles<typeof styles> {
 function Menu(props: Props) {
   const { classes } = props;
 
+  const lockedItems = (props.lastFetch !== null) ? <React.Fragment>
+    <NavLink to="/passed" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
+      <ListItem button={true}>
+        <ListItemIcon><ListIcon /></ListItemIcon>
+        <ListItemText primary="Jours passés" />
+      </ListItem>
+    </NavLink>
+    <NavLink to="/coming" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
+      <ListItem button={true}>
+        <ListItemIcon><TrendingUpIcon /></ListItemIcon>
+        <ListItemText primary="Jours à venir" />
+      </ListItem>
+    </NavLink>
+    <NavLink to="/summary" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
+      <ListItem button={true}>
+        <ListItemIcon><PollIcon /></ListItemIcon>
+        <ListItemText primary="Analyse" />
+      </ListItem>
+    </NavLink>
+  </React.Fragment> : null;
+
   return (
     <div>
       <SwipeableDrawer className={classes.drawer} open={props.open} onOpen={props.onOpen} onClose={props.onClose}>
@@ -59,24 +80,7 @@ function Menu(props: Props) {
                 <ListItemText primary="Configuration" />
               </ListItem>
             </NavLink>
-            <NavLink to="/passed" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
-              <ListItem button={true}>
-                <ListItemIcon><ListIcon /></ListItemIcon>
-                <ListItemText primary="Jours passés" />
-              </ListItem>
-            </NavLink>
-            <NavLink to="/coming" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
-              <ListItem button={true}>
-                <ListItemIcon><TrendingUpIcon /></ListItemIcon>
-                <ListItemText primary="Jours à venir" />
-              </ListItem>
-            </NavLink>
-            <NavLink to="/summary" className={classes.navLink} activeClassName={classes.activeNavLink} onClick={props.onClose}>
-              <ListItem button={true}>
-                <ListItemIcon><PollIcon /></ListItemIcon>
-                <ListItemText primary="Analyse" />
-              </ListItem>
-            </NavLink>
+            {lockedItems}
           </List>
           <Divider />
           <List>
