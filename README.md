@@ -4,6 +4,8 @@ Calcul des congés et jours non travaillés dans le cadre d'un travail à temps 
 
 _This app is only available in French, because it only makes sense for French people under the French work law._
 
+⚠️ _Main repository is here: https://gitlab.com/dsferruzza/party-time_ ⚠️
+
 ![](screenshots/graph.png)![](screenshots/month.png)
 
 ## Fonctionnalités
