@@ -35,6 +35,13 @@ Cette application cible le contexte suivant :
 
 L'application est disponible à l'adresse : https://dsferruzza.gitlab.io/party-time/
 
+Pour permettre de détecter les jours de congés et les jours _off temps partiel_, il faut avoir dans l'agenda Google des événements dont le nom commence par :
+
+- `Congés` pour les jours de congé
+- `Absent` pour les jours _off temps partiel_
+
+Ces événements peuvent durer plusieurs jours et recouvrir les weekends et jours fériés.
+
 Le serveur ne fait que servir l'application sous la forme d'un site statique.
 Aucune donnée n'est stockée ou envoyée à des tiers.
 Les traitements restent en local au niveau du navigateur.
