@@ -6,6 +6,8 @@ _This app is only available in French, because it only makes sense for French pe
 
 ⚠️ _Main repository is here: https://gitlab.com/dsferruzza/party-time_ ⚠️
 
+## Copies d'écran
+
 ![](screenshots/graph.png)![](screenshots/month.png)
 
 ## Fonctionnalités
