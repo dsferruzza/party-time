@@ -1,5 +1,6 @@
 # Party Time
 
+[![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![pipeline status](https://gitlab.com/dsferruzza/party-time/badges/master/pipeline.svg)](https://gitlab.com/dsferruzza/party-time/commits/master)
 [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/dsferruzza?utm_source=github&utm_medium=button&utm_term=dsferruzza&utm_campaign=github)
 
