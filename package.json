@@ -12,8 +12,8 @@
     "@material-ui/core": "3.9.0",
     "@material-ui/icons": "3.0.2",
     "@types/chartist": "0.9.43",
-    "@types/jest": "23.3.12",
-    "@types/luxon": "1.4.1",
+    "@types/jest": "23.3.13",
+    "@types/luxon": "1.10.2",
     "@types/node": "10.12.18",
     "@types/query-string": "6.2.0",
     "@types/react": "16.7.20",
@@ -35,6 +35,6 @@
     "redux-persist": "5.10.0",
     "redux-thunk": "2.3.0",
     "typeface-roboto": "0.0.54",
-    "typescript": "3.2.2"
+    "typescript": "3.2.4"
   }
 }
