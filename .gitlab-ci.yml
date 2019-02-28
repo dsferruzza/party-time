@@ -13,7 +13,6 @@ variables:
 build:
   <<: *yarn
   stage: build
-  image: node
   variables:
     NODE_ENV: production
   script:
