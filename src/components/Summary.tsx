@@ -64,9 +64,10 @@ function Summary(props: Props) {
         </Card>
       </Grid>
     });
-    const isExpanded = k === 0;
+    const isCurrentYear = ys.startDate.until(ys.startDate.plus({ years: 1 }).minus({ days: 1 })).contains(DateTime.local());
+    const isExpanded = isCurrentYear;
     const daysOffleft = ys.totalPartialTimeOffDays - ys.partialTimeOffDays;
-    const balance = (k === 0) ? <Typography>Jours off temps partiel au {DateTime.local().toFormat('dd/LL/yyyy')} : <strong>{(props.daysOffBalance > 0) ? `+${props.daysOffBalance}` : props.daysOffBalance}</strong></Typography> : '';
+    const balance = isCurrentYear ? <Typography>Jours off temps partiel au {DateTime.local().toFormat('dd/LL/yyyy')} : <strong>{(props.daysOffBalance > 0) ? `+${props.daysOffBalance}` : props.daysOffBalance}</strong></Typography> : '';
     const partialTimeOffDaysGraphOption = {
       axisX: {
         labelInterpolationFnc: (value: number) => {
