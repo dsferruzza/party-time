@@ -27,8 +27,8 @@ function mapStateToProps(state: StoreState) {
     }).skipWhile(ms => ms.month > DateTime.local() && ms.partialTimeOffDays <= 0);
     return s;
   });
-  const currentYear = ys.first(null);
-  const balance = (currentYear !== null) ? daysOffBalance(currentYear.startDate, currentYear.totalPartialTimeOffDays, analyzedEvents.filter(e => currentYear.startDate.until(DateTime.local()).contains(e.day))) : 0;
+  const currentYear = ys.find(y => y.startDate.until(y.startDate.plus({ years: 1 }).minus({ days: 1 })).contains(DateTime.local()));
+  const balance = (currentYear !== undefined) ? daysOffBalance(currentYear.startDate, currentYear.totalPartialTimeOffDays, analyzedEvents.filter(e => currentYear.startDate.until(DateTime.local()).contains(e.day))) : 0;
   return {
     daysOffBalance: balance,
     yearSummary: ys,
