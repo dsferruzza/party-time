@@ -15,9 +15,13 @@ const styles = createStyles({
 interface Props extends WithStyles<typeof styles> {
   onClientIdChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   onDueWorkDaysChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onHolidaysRegexChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onPartialTimeOffRegexChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   onTimeMinChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   clientId: string
   dueWorkDays: number
+  holidaysRegex: string
+  partialTimeOffRegex: string
   timeMin: string
 }
 
@@ -37,6 +41,14 @@ function Config(props: Props) {
       <FormControl fullWidth={true}>
         <InputLabel htmlFor="dueWorkDays">Nombre de jours par an à travailler</InputLabel>
         <Input id="dueWorkDays" type="number" value={props.dueWorkDays} onChange={props.onDueWorkDaysChange} />
+      </FormControl>
+      <FormControl fullWidth={true}>
+        <InputLabel htmlFor="partialTimeOffRegex">Expression régulière pour reconnaitre les événements des jours off temps partiel (exemple : ^Absent|^RTT)</InputLabel>
+        <Input id="partialTimeOffRegex" type="text" value={props.partialTimeOffRegex} onChange={props.onPartialTimeOffRegexChange} />
+      </FormControl>
+      <FormControl fullWidth={true}>
+        <InputLabel htmlFor="holidaysRegex">Expression régulière pour reconnaitre les événements des congés payés (exemple : ^Congés)</InputLabel>
+        <Input id="holidaysRegex" type="text" value={props.holidaysRegex} onChange={props.onHolidaysRegexChange} />
       </FormControl>
     </div>
   )

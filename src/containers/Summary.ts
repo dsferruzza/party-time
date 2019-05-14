@@ -6,7 +6,7 @@ import { analyzeEvents, daysOffBalance, yearSummary } from '../lib/calendar';
 import { StoreState } from '../lib/state';
 
 function mapStateToProps(state: StoreState) {
-  const analyzedEvents = analyzeEvents((typeof state.events === 'undefined') ? [] : state.events, state.config.timeMin);
+  const analyzedEvents = analyzeEvents((typeof state.events === 'undefined') ? [] : state.events, state.config.timeMin, state.config.holidaysRegex, state.config.partialTimeOffRegex);
   const ys = yearSummary(analyzedEvents, DateTime.fromISO(state.config.timeMin), state.config.dueWorkDays).sort((a, b) => {
     if (a.startDate < b.startDate) {
       return 1;

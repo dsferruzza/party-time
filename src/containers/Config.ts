@@ -9,6 +9,8 @@ function mapStateToProps(state: StoreState) {
   return {
     clientId: state.config.clientId,
     dueWorkDays: state.config.dueWorkDays,
+    holidaysRegex: state.config.holidaysRegex,
+    partialTimeOffRegex: state.config.partialTimeOffRegex,
     timeMin: state.config.timeMin,
   };
 }
@@ -22,6 +24,8 @@ function mapDispatchToProps(dispatch: Dispatch<ConfigAction>) {
         dispatch({ type: 'SetDueWorkDays', dueWorkDays: n });
       }
     },
+    onHolidaysRegexChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetHolidaysRegexChange', holidaysRegex: e.currentTarget.value }),
+    onPartialTimeOffRegexChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetPartialTimeOffRegex', partialTimeOffRegex: e.currentTarget.value }),
     onTimeMinChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetTimeMin', timeMin: e.currentTarget.value }),
   };
 }

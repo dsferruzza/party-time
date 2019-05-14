@@ -39,10 +39,11 @@ Cette application cible le contexte suivant :
 
 L'application est disponible à l'adresse : https://dsferruzza.gitlab.io/party-time/
 
-Pour permettre de détecter les jours de congés et les jours _off temps partiel_, il faut avoir dans l'agenda Google des événements dont le nom commence par :
+Pour permettre de détecter les jours de congés et les jours _off temps partiel_, il faut avoir dans l'agenda Google des événements dont le nom respecte un format donné qui est réglable.
+Par exemple :
 
-- `Congés` pour les jours de congé
-- `Absent` pour les jours _off temps partiel_
+- le nom commence par `Congés` pour les jours de congé
+- le nom commence par `Absent` pour les jours _off temps partiel_
 
 Ces événements peuvent durer plusieurs jours et recouvrir les weekends et jours fériés.
 
@@ -55,6 +56,8 @@ Les traitements restent en local au niveau du navigateur.
 - **Identifiant client pour l'accès à l'API Google (client_id)** : voir la section suivante.
 - **Date minimum** : date à laquelle a commencé le temps partiel (les événements antérieurs sont ignorés). Doit être au format ISO 8601. Exemple : `2018-11-01T00:00:00+01:00`.
 - **Nombre de jours par an à travailler** : tel que défini dans le contrat de travail. Doit être un nombre entier, probablement inférieur ou égal à 218.
+- **Expression régulière pour reconnaitre les événements des jours off temps partiel** : doit être une [expression régulière valide](https://regex101.com/). Exemple : `^Absent|^RTT` (commence par le mot `Absent` ou le mot `RTT`).
+- **Expression régulière pour reconnaitre les événements des congés payés** : doit être une [expression régulière valide](https://regex101.com/). Exemple : `^Congés` (commence par le mot `Congés`).
 
 ### Obtenir un _client_id_ Google
 

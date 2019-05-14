@@ -71,14 +71,14 @@ interface DayOffEvent {
   summary: string
 }
 
-export function analyzeEvents(es: Event[], timeMinStr: string): List<ClassifiedDay> {
+export function analyzeEvents(es: Event[], timeMinStr: string, holidaysRegex: string, partialTimeOffRegex: string): List<ClassifiedDay> {
   const events: List<DayOffEvent> = List(es).filter(e => e.status === "confirmed").map(e => ({
     endDate: DateTime.fromISO(e.end.dateTime),
     startDate: DateTime.fromISO(e.start.dateTime),
     summary: e.summary,
   }));
-  const holidays = events.filter(e => /^Congés/.test(e.summary));
-  const partialTimeOff = events.filter(e => /^Absent/.test(e.summary));
+  const holidays = events.filter(e => RegExp(holidaysRegex).test(e.summary));
+  const partialTimeOff = events.filter(e => RegExp(partialTimeOffRegex).test(e.summary));
   const timeMin = DateTime.fromISO(timeMinStr);
   const eventTimeMax = holidays.concat(partialTimeOff).reduce((acc, cur) => (cur.endDate > acc) ? cur.endDate : acc, DateTime.local()).endOf('month');
   const potentialTimeMax = timeMin.set({ year: eventTimeMax.get('year') }).minus({ days: 1 });
