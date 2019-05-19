@@ -85,10 +85,10 @@
     prop-types "^15.6.0"
     react-is "^16.6.3"
 
-"@types/chartist@0.9.44":
-  version "0.9.44"
-  resolved "https://registry.yarnpkg.com/@types/chartist/-/chartist-0.9.44.tgz#ab298a61ca44fe2c3a978eb909dd494725cfce1f"
-  integrity sha512-HOmxOPqfMk5ShDjESmmmzIph1k6bRdLfEWudTVgcC5LqErruNUksv2Vw86Qqm/0Oiccehyz/Ns/titsXMS/5DA==
+"@types/chartist@0.9.45":
+  version "0.9.45"
+  resolved "https://registry.yarnpkg.com/@types/chartist/-/chartist-0.9.45.tgz#d818d0bb73ad5dde554416034cb82f5db330359e"
+  integrity sha512-flwRNZFQAgDfWncAQHIR27C2geGk0LjYLORKXKO2G0jKpgW2L0J2Dvg7JBMuaX3pJwom5VD/iMRjbV5iKsk/Xw==
 
 "@types/history@*":
   version "4.7.2"
@@ -133,10 +133,10 @@
   resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-1.13.0.tgz#e92338702d0b1b96e8d5ea6fe39d9938891aacd0"
   integrity sha512-XmDiRVoJWgVdqX9x1a/GU4p9bSgZY7q8SOyMLs3fx1AdQcxLYAPIt/jfZm2e+PBVRWuEx1FqYNJ37kBZ53TMqA==
 
-"@types/node@12.0.1":
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.1.tgz#3dde31f8da274dfeb90e96abf55038fef46285f0"
-  integrity sha512-7sy7DKVJrCTbaAERJZq/CU12bzdmpjRr321/Ne9QmzhB3iZ//L16Cizcni5hHNbANxDbxwMb9EFoWkM8KPkp0A==
+"@types/node@12.0.2":
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.2.tgz#3452a24edf9fea138b48fad4a0a028a683da1e40"
+  integrity sha512-5tabW/i+9mhrfEOUcLDu2xBPsHJ+X5Orqy9FKpale3SjDA17j5AEpYq5vfy3oAeAHGcvANRCO3NV3d2D6q3NiA==
 
 "@types/prop-types@*":
   version "15.7.1"
@@ -5410,10 +5410,10 @@ lru-cache@^4.0.1, lru-cache@^4.1.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-luxon@1.13.1:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.13.1.tgz#b7fb7ba1e5c93ebda098af8d579314797e0a0d69"
-  integrity sha512-IQKRIiz9ldUrgcozN13SAeNZVYfD3bEI9X6TcrGu+dkgE4GR/Iik03ozbTM5cTr0lz8ucYPL2jtYT7Va2Flbsg==
+luxon@1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.15.0.tgz#d06643c437982332a3feff4ee7c718bdbbae09fd"
+  integrity sha512-HIpK4zIonObWHj9UC80ElykmM/0jTuuXcbPYBYbDGZ3Cq2bL9rACcmppoc6zm5JnmHpnK5bRMIp8/+ei4O0y2Q==
 
 make-dir@^1.0.0:
   version "1.3.0"
