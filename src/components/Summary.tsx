@@ -99,7 +99,7 @@ function Summary(props: Props) {
     return (
       <ExpansionPanel key={ys.startDate.toISO()} defaultExpanded={isExpanded}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Grid container={true} spacing={32}>
+          <Grid container={true} spacing={4}>
             <Grid item={true} xs={12} sm={4}>
               <Typography variant="h4">{ys.startDate.get('year')} - {ys.startDate.get('year') + 1}</Typography>
             </Grid>
@@ -110,7 +110,7 @@ function Summary(props: Props) {
           </Grid>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Grid container={true} spacing={16}>
+          <Grid container={true} spacing={2}>
             <Grid item={true} xs={12}>
               <Card>
                 <CardHeader title="Jours off temps partiel gagnés/dépensés" />

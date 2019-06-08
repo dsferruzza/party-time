@@ -28,6 +28,7 @@ const styles = createStyles({
     width: 250,
   },
   navLink: {
+    color: 'inherit',
     textDecoration: 'none',
   },
 });
