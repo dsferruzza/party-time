@@ -180,7 +180,7 @@ function generateConsumedPartialTimeOffDaysSeries(days: List<ClassifiedDay>): Li
   }), { series: List(), nextValue: 0 }).series;
 }
 
-export function yearSummary(classifiedDays: List<ClassifiedDay>, timeMin: DateTime, dueWorkDays: number): List<YearSummary> {
+export function yearSummary(classifiedDays: List<ClassifiedDay>, timeMin: DateTime, dueWorkDays: number, dueHolidays: number): List<YearSummary> {
   const diffToLowerYear = timeMin.diff(timeMin.startOf('year'));
   const grouped = classifiedDays.groupBy(d => d.day.minus(diffToLowerYear).get('year')).map(v => List(v.values()));
   const withSummary = grouped.map((days, startYearStr) => {
@@ -188,7 +188,7 @@ export function yearSummary(classifiedDays: List<ClassifiedDay>, timeMin: DateTi
     const holidays = days.count(d => d.type === 'holiday');
     const partialTimeOffDays = days.count(d => d.type === 'partial-time-off');
     const workedDays = totalWorkingDays - holidays - partialTimeOffDays;
-    const totalPartialTimeOffDays = totalWorkingDays - dueWorkDays;
+    const totalPartialTimeOffDays = totalWorkingDays - dueWorkDays - dueHolidays;
     const ms = monthSummary(days);
     const earnedPartialTimeOffDaysSeries = generateEarnedPartialTimeOffDaysSeries(days, totalPartialTimeOffDays);
     const consumedPartialTimeOffDaysSeries = generateConsumedPartialTimeOffDaysSeries(days);

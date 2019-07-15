@@ -56,6 +56,7 @@ Les traitements restent en local au niveau du navigateur.
 - **Identifiant client pour l'accès à l'API Google (client_id)** : voir la section suivante.
 - **Date minimum** : date à laquelle a commencé le temps partiel (les événements antérieurs sont ignorés). Doit être au format ISO 8601. Exemple : `2018-11-01T00:00:00+01:00`.
 - **Nombre de jours par an à travailler** : tel que défini dans le contrat de travail. Doit être un nombre entier, probablement inférieur ou égal à 218.
+- **Nombre de jours de congés payés reçus par an** : tel que défini dans le contrat de travail. Doit être un nombre entier, probablement proche de 25.
 - **Expression régulière pour reconnaitre les événements des jours off temps partiel** : doit être une [expression régulière valide](https://regex101.com/). Exemple : `^Absent|^RTT` (commence par le mot `Absent` ou le mot `RTT`).
 - **Expression régulière pour reconnaitre les événements des congés payés** : doit être une [expression régulière valide](https://regex101.com/). Exemple : `^Congés` (commence par le mot `Congés`).
 

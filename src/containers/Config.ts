@@ -9,6 +9,7 @@ function mapStateToProps(state: StoreState) {
   return {
     clientId: state.config.clientId,
     dueWorkDays: state.config.dueWorkDays,
+    holidays: state.config.holidays,
     holidaysRegex: state.config.holidaysRegex,
     partialTimeOffRegex: state.config.partialTimeOffRegex,
     timeMin: state.config.timeMin,
@@ -22,6 +23,12 @@ function mapDispatchToProps(dispatch: Dispatch<ConfigAction>) {
       const n = parseInt(e.currentTarget.value, 10);
       if (!isNaN(n) && n < 365 && n >= 0) {
         dispatch({ type: 'SetDueWorkDays', dueWorkDays: n });
+      }
+    },
+    onHolidaysChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const n = parseInt(e.currentTarget.value, 10);
+      if (!isNaN(n) && n < 365 && n >= 0) {
+        dispatch({ type: 'SetHolidays', holidays: n });
       }
     },
     onHolidaysRegexChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetHolidaysRegexChange', holidaysRegex: e.currentTarget.value }),

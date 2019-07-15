@@ -8,6 +8,7 @@ export interface StoreState {
   config: {
     clientId: string
     dueWorkDays: number
+    holidays: number
     holidaysRegex: string
     partialTimeOffRegex: string
     timeMin: string
@@ -38,6 +39,7 @@ export const emptyStore: StoreState = {
   config: {
     clientId: '',
     dueWorkDays: 218,
+    holidays: 25,
     holidaysRegex: '/^Congés/',
     partialTimeOffRegex: '/^Absent|^RTT/',
     timeMin: '',
@@ -53,8 +55,8 @@ export const emptyStore: StoreState = {
   },
 };
 
-export type Action = SetClientId | SetDueWorkDays | SetHolidaysRegexChange | SetPartialTimeOffRegex | SetTimeMin | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus | OpenMenu | CloseMenu | UpdateAccessToken | AppUpdated;
-export type ConfigAction = SetClientId | SetDueWorkDays | SetHolidaysRegexChange | SetPartialTimeOffRegex | SetTimeMin;
+export type Action = SetClientId | SetDueWorkDays | SetHolidays | SetHolidaysRegexChange | SetPartialTimeOffRegex | SetTimeMin | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus | OpenMenu | CloseMenu | UpdateAccessToken | AppUpdated;
+export type ConfigAction = SetClientId | SetDueWorkDays | SetHolidays | SetHolidaysRegexChange | SetPartialTimeOffRegex | SetTimeMin;
 export type MenuAction = OpenMenu | CloseMenu;
 
 export interface SetClientId {
@@ -66,6 +68,12 @@ export interface SetDueWorkDays {
   type: 'SetDueWorkDays'
   dueWorkDays: number
 }
+
+export interface SetHolidays {
+  type: 'SetHolidays'
+  holidays: number
+}
+
 export interface SetHolidaysRegexChange {
   type: 'SetHolidaysRegexChange'
   holidaysRegex: string
@@ -127,6 +135,8 @@ export function reducer(state: StoreState | undefined, action: Action): StoreSta
       return { ...state, config: { ...state.config, clientId: action.clientId }, googleOAuth: { ...state.googleOAuth, expiresAt: DateTime.local().toISO() } };
     case 'SetDueWorkDays':
       return { ...state, config: { ...state.config, dueWorkDays: action.dueWorkDays } };
+    case 'SetHolidays':
+      return { ...state, config: { ...state.config, holidays: action.holidays } };
     case 'SetHolidaysRegexChange':
       return { ...state, config: { ...state.config, holidaysRegex: action.holidaysRegex } };
     case 'SetPartialTimeOffRegex':
