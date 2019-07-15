@@ -86,10 +86,10 @@ function Summary(props: Props) {
       },
       showPoint: false,
     };
-    const todaySeries = [
+    const todaySeries = (isCurrentYear) ? [
       { x: DateTime.local(), y: 0 },
       { x: DateTime.local().plus({ milliseconds: 1 }), y: ys.totalPartialTimeOffDays },
-    ];
+    ] : [];
     const partialTimeOffDaysGraphData = {
       series: [
         { name: 'earnedPartialTimeOffDaysSeries', data: ys.earnedPartialTimeOffDaysSeries.toArray() },
