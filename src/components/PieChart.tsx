@@ -11,10 +11,10 @@ interface Props {
 
 export class PieChart extends React.Component<Props> {
 
-  public displayName: 'PieChart';
+  public displayName!: 'PieChart';
 
-  protected chart: HTMLDivElement | null;
-  protected chartist: Chartist.IChartistPieChart;
+  protected chart!: HTMLDivElement | null;
+  protected chartist!: Chartist.IChartistPieChart;
 
   public componentDidMount() {
     this.updateChart(this.props);

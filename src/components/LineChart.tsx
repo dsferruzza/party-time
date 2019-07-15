@@ -11,10 +11,10 @@ interface Props {
 
 export class LineChart extends React.Component<Props> {
 
-  public displayName: 'LineChart';
+  public displayName!: 'LineChart';
 
-  protected chart: HTMLDivElement | null;
-  protected chartist: Chartist.IChartistLineChart;
+  protected chart!: HTMLDivElement | null;
+  protected chartist!: Chartist.IChartistLineChart;
 
   public componentDidMount() {
     this.updateChart(this.props);

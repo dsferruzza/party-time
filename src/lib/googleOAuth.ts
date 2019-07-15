@@ -32,7 +32,8 @@ export function getAccessToken(clientId: string, currentAccessToken: string, cur
       };
       const authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' + queryString.stringify(qs);
       const popup = window.open(authUrl, authWindowName, `width=500,height=700,location=no,toolbar=no,menubar=no`);
-      window['authCallback'] = (rawHash: string) => { // tslint:disable-line:no-string-literal
+      const unsafeWindow: any = window;
+      unsafeWindow['authCallback'] = (rawHash: string) => {
         if (popup !== null) {
           popup.close();
         }

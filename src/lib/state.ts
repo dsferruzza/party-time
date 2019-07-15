@@ -118,7 +118,10 @@ export interface AppUpdated {
   type: 'AppUpdated'
 }
 
-export function reducer(state: StoreState, action: Action): StoreState {
+export function reducer(state: StoreState | undefined, action: Action): StoreState {
+  if (!state) {
+    state = emptyStore;
+  }
   switch (action.type) {
     case 'SetClientId':
       return { ...state, config: { ...state.config, clientId: action.clientId }, googleOAuth: { ...state.googleOAuth, expiresAt: DateTime.local().toISO() } };
