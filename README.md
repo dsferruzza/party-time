@@ -31,7 +31,7 @@ _This app is only available in French, because it only makes sense for French pe
 
 Cette application cible le contexte suivant :
 
-- travail en temps partiel pour une entreprise
+- travail en "temps partiel" pour une entreprise
 - contrat de travail en forfait jours
 - agenda d'entreprise sur Google Agenda
 
@@ -81,7 +81,7 @@ Les traitements restent en local au niveau du navigateur.
 - installer les dépendances : `yarn install`
 - lancer l'application en mode développement : `yarn run start`
 
-Cette application a été créée en utilisant [Create React App](https://github.com/facebookincubator/create-react-app) ; voir le [README associé](README_create-react-app.md).
+Cette application a été créée en utilisant [Create React App](https://github.com/facebook/create-react-app) ; voir le [README associé](README_create-react-app.md).
 
 ## Licence
 
