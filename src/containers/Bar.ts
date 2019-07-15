@@ -35,13 +35,13 @@ function updateCalendar(): ThunkResult<void> {
           dispatch({ type: 'ReceiveCalendar', calendarPayload: data, events });
         }, (error: Error | string) => {
           const msg: string = (error instanceof Error) ? `${error.name}: ${error.message}` : error;
-          dispatch({ type: 'FetchCalendarError', msg })
+          dispatch({ type: 'FetchCalendarError', msg });
         });
       });
     } else {
       dispatch({ type: 'FetchCalendarError', msg: "L'identifiant client est vide !" });
     }
-  }
+  };
 }
 
 function toggleMenu(): ThunkAction<void, StoreState, undefined, MenuAction> {
@@ -51,7 +51,7 @@ function toggleMenu(): ThunkAction<void, StoreState, undefined, MenuAction> {
     } else {
       dispatch({ type: 'OpenMenu' });
     }
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch: MyThunkDispatch) {

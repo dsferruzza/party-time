@@ -33,7 +33,7 @@ export function getAccessToken(clientId: string, currentAccessToken: string, cur
       const authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' + queryString.stringify(qs);
       const popup = window.open(authUrl, authWindowName, `width=500,height=700,location=no,toolbar=no,menubar=no`);
       const unsafeWindow: any = window;
-      unsafeWindow['authCallback'] = (rawHash: string) => {
+      unsafeWindow.authCallback = (rawHash: string) => {
         if (popup !== null) {
           popup.close();
         }
@@ -45,7 +45,7 @@ export function getAccessToken(clientId: string, currentAccessToken: string, cur
             resolve({ accessToken: hash.access_token, expirationDate });
           }
         }
-      }
+      };
     } else {
       resolve({ accessToken: currentAccessToken, expirationDate: currentExpirationDate });
     }
@@ -65,5 +65,5 @@ interface ValidHash {
 }
 
 function isValidHash(obj: any): obj is ValidHash {
-  return typeof obj.access_token === "string" && typeof obj.expires_in === "string" && typeof obj.state === "string";
+  return typeof obj.access_token === 'string' && typeof obj.expires_in === 'string' && typeof obj.state === 'string';
 }

@@ -49,9 +49,9 @@ export const emptyStore: StoreState = {
   lastFetch: null,
   menuOpenned: false,
   status: {
-    msg: null
+    msg: null,
   },
-}
+};
 
 export type Action = SetClientId | SetDueWorkDays | SetHolidaysRegexChange | SetPartialTimeOffRegex | SetTimeMin | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus | OpenMenu | CloseMenu | UpdateAccessToken | AppUpdated;
 export type ConfigAction = SetClientId | SetDueWorkDays | SetHolidaysRegexChange | SetPartialTimeOffRegex | SetTimeMin;

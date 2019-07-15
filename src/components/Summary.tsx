@@ -43,26 +43,28 @@ function Summary(props: Props) {
         startAngle: 270,
         total: ms.totalWorkingDays * 2,
       };
-      return <Grid item={true} xs={12} sm={6} md={4} lg={3} xl={2} key={ms.month.toISO()}>
-        <Card>
-          <CardHeader title={ms.month.toFormat('LLLL yyyy')} />
-          <CardContent>
-            <PieChart className="ct-party-time" data={data} options={options} />
-            <Typography>
-              <strong>Jours ouvrés :</strong> {ms.totalWorkingDays}
-            </Typography>
-            <Typography>
-              <strong>Jours travaillés :</strong> {ms.workedDays}
-            </Typography>
-            <Typography>
-              <strong>Jours off temps partiel :</strong> {ms.partialTimeOffDays}
-            </Typography>
-            <Typography>
-              <strong>Jours de congé :</strong> {ms.holidays}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+      return (
+        <Grid item={true} xs={12} sm={6} md={4} lg={3} xl={2} key={ms.month.toISO()}>
+          <Card>
+            <CardHeader title={ms.month.toFormat('LLLL yyyy')} />
+            <CardContent>
+              <PieChart className="ct-party-time" data={data} options={options} />
+              <Typography>
+                <strong>Jours ouvrés :</strong> {ms.totalWorkingDays}
+              </Typography>
+              <Typography>
+                <strong>Jours travaillés :</strong> {ms.workedDays}
+              </Typography>
+              <Typography>
+                <strong>Jours off temps partiel :</strong> {ms.partialTimeOffDays}
+              </Typography>
+              <Typography>
+                <strong>Jours de congé :</strong> {ms.holidays}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      );
     });
     const isCurrentYear = ys.startDate.until(ys.startDate.plus({ years: 1 }).minus({ days: 1 })).contains(DateTime.local());
     const isExpanded = isCurrentYear;
@@ -78,7 +80,7 @@ function Summary(props: Props) {
       },
       height: 300,
       series: {
-        'earnedPartialTimeOffDaysSeries': {
+        earnedPartialTimeOffDaysSeries: {
           showArea: true,
         },
       },
@@ -123,14 +125,14 @@ function Summary(props: Props) {
           </Grid>
         </ExpansionPanelDetails>
       </ExpansionPanel>
-    )
+    );
   });
 
   return (
     <div>
       {sections}
     </div>
-  )
+  );
 }
 
 export default withStyles(styles)(Summary);

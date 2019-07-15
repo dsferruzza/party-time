@@ -51,7 +51,7 @@ function Config(props: Props) {
         <Input id="holidaysRegex" type="text" value={props.holidaysRegex} onChange={props.onHolidaysRegexChange} />
       </FormControl>
     </div>
-  )
+  );
 }
 
 export default withStyles(styles)(Config);

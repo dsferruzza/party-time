@@ -46,8 +46,8 @@ export class PieChart extends React.Component<Props> {
   public render() {
     const { className, style } = this.props;
     return (
-      <div className={`ct-chart ${className || ''}`} ref={(ref) => this.chart = ref} style={style} />
-    )
+      <div className={`ct-chart ${className || ''}`} ref={ref => this.chart = ref} style={style} />
+    );
   }
 
   protected updateChart(config: Props) {

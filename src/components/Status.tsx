@@ -36,7 +36,7 @@ function Status(props: Props) {
         </IconButton>,
       ]}
     />
-  )
+  );
 }
 
 export default withStyles(styles)(Status);

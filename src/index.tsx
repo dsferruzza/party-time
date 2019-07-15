@@ -4,9 +4,9 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
-import { persistReducer, persistStore } from 'redux-persist'
-import { PersistGate } from 'redux-persist/integration/react'
-import storage from 'redux-persist/lib/storage'
+import { persistReducer, persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import 'typeface-roboto';
 
@@ -20,16 +20,18 @@ const persistConfig = {
   storage,
   whitelist: ['config', 'events', 'googleOAuth', 'lastFetch'],
 };
-const persistedReducer = persistReducer(persistConfig, reducer)
+const persistedReducer = persistReducer(persistConfig, reducer);
 const store = createStore(persistedReducer, emptyStore, composeWithDevTools(applyMiddleware(thunk)));
 const persistor = persistStore(store);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-    </PersistGate>
-  </Provider>,
+  (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  ),
   document.getElementById('root') as HTMLElement
 );
 

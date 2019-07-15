@@ -43,7 +43,7 @@ function computeDays(timeMin: DateTime, timeMax: DateTime): List<DateTime> {
   return days;
 }
 
-type DayType = "working" | "weekend" | "non-working" | "holiday" | "partial-time-off";
+type DayType = 'working' | 'weekend' | 'non-working' | 'holiday' | 'partial-time-off';
 
 export interface ClassifiedDay {
   day: DateTime
@@ -53,15 +53,15 @@ export interface ClassifiedDay {
 function classifyDay(holidays: List<DayOffEvent>, partialTimeOff: List<DayOffEvent>, day: DateTime): ClassifiedDay {
   const ajustedDay = day.set({ hour: 12 });
   if (day.weekday >= 6) {
-    return { day, type: "weekend" };
+    return { day, type: 'weekend' };
   } else if (nonWorkingDays(day.year).find(d => d.month === day.month && d.day === day.day)) {
-    return { day, type: "non-working" };
+    return { day, type: 'non-working' };
   } else if (holidays.find(d => Interval.fromDateTimes(d.startDate, d.endDate).contains(ajustedDay))) {
-    return { day, type: "holiday" };
+    return { day, type: 'holiday' };
   } else if (partialTimeOff.find(d => Interval.fromDateTimes(d.startDate, d.endDate).contains(ajustedDay))) {
-    return { day, type: "partial-time-off" };
+    return { day, type: 'partial-time-off' };
   } else {
-    return { day, type: "working" }
+    return { day, type: 'working' };
   }
 }
 
@@ -72,7 +72,7 @@ interface DayOffEvent {
 }
 
 export function analyzeEvents(es: Event[], timeMinStr: string, holidaysRegex: string, partialTimeOffRegex: string): List<ClassifiedDay> {
-  const events: List<DayOffEvent> = List(es).filter(e => e.status === "confirmed").map(e => ({
+  const events: List<DayOffEvent> = List(es).filter(e => e.status === 'confirmed').map(e => ({
     endDate: DateTime.fromISO(e.end.dateTime),
     startDate: DateTime.fromISO(e.start.dateTime),
     summary: e.summary,
@@ -89,7 +89,7 @@ export function analyzeEvents(es: Event[], timeMinStr: string, holidaysRegex: st
 }
 
 export function dayTypeColor(type: DayType): string {
-  switch(type) {
+  switch (type) {
     case 'working':
       return 'skyblue';
     case 'partial-time-off':

@@ -32,7 +32,7 @@ function UpdateWarning(props: Props) {
         </IconButton>,
       ]}
     />
-  )
+  );
 }
 
 function reload() {

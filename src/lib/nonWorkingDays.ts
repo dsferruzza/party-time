@@ -8,17 +8,17 @@ export function nonWorkingDays(year: number): OrderedMap<string, DateTime> {
   // tslint:disable:object-literal-sort-keys
   return OrderedMap({
     "Jour de l'an": DateTime.fromObject({ year, month: 1, day: 1 }),
-    "Lundi de Pâques": paques.plus(Duration.fromObject({ days: 1 })),
-    "Fête du travail": DateTime.fromObject({ year, month: 5, day: 1 }),
-    "Victoire des alliés": DateTime.fromObject({ year, month: 5, day: 8 }),
+    'Lundi de Pâques': paques.plus(Duration.fromObject({ days: 1 })),
+    'Fête du travail': DateTime.fromObject({ year, month: 5, day: 1 }),
+    'Victoire des alliés': DateTime.fromObject({ year, month: 5, day: 8 }),
     "Jeudi de l'Ascension": paques.plus(Duration.fromObject({ days: 39 })),
-    "Lundi de Pentecôte": paques.plus(Duration.fromObject({ days: 50 })),
-    "Fête nationale": DateTime.fromObject({ year, month: 7, day: 14 }),
-    "Assomption": DateTime.fromObject({ year, month: 8, day: 15 }),
-    "La Toussaint": DateTime.fromObject({ year, month: 11, day: 1 }),
-    "Armistice": DateTime.fromObject({ year, month: 11, day: 11 }),
-    "Noël": DateTime.fromObject({ year, month: 12, day: 25 }),
-  })
+    'Lundi de Pentecôte': paques.plus(Duration.fromObject({ days: 50 })),
+    'Fête nationale': DateTime.fromObject({ year, month: 7, day: 14 }),
+    'Assomption': DateTime.fromObject({ year, month: 8, day: 15 }),
+    'La Toussaint': DateTime.fromObject({ year, month: 11, day: 1 }),
+    'Armistice': DateTime.fromObject({ year, month: 11, day: 11 }),
+    'Noël': DateTime.fromObject({ year, month: 12, day: 25 }),
+  });
   // tslint:enable:object-literal-sort-keys
 }
 

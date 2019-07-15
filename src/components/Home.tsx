@@ -36,9 +36,9 @@ function Home(props: Props) {
       </Typography>
       <hr className={classes.separator} />
       {(!props.configured) ? configureButton : summaryButton}
-      {(props.configured && (props.lastFetch === null || props.lastFetch.diffNow("days").get("days") > 2)) ? fetchWarning : null}
+      {(props.configured && (props.lastFetch === null || props.lastFetch.diffNow('days').get('days') > 2)) ? fetchWarning : null}
     </div>
-  )
+  );
 }
 
 export default withStyles(styles)(Home);
