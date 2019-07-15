@@ -12,7 +12,7 @@ import 'typeface-roboto';
 
 import App from './components/App';
 import { installAuthCallback } from './lib/googleOAuth';
-import registerServiceWorker from './lib/registerServiceWorker';
+import { register } from './lib/registerServiceWorker';
 import { emptyStore, reducer } from './lib/state';
 
 const persistConfig = {
@@ -35,5 +35,9 @@ ReactDOM.render(
   document.getElementById('root') as HTMLElement
 );
 
-registerServiceWorker(store);
+register({
+  onUpdate: () => {
+    store.dispatch({ type: 'AppUpdated' });
+  },
+});
 installAuthCallback();
