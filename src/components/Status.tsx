@@ -31,9 +31,11 @@ function Status(props: Props) {
       }}
       message={<span id="message-id">{props.msg}</span>}
       action={[
-        <IconButton key="close" aria-label="Close" color="inherit" onClick={props.onClose}>
-          <CloseIcon />
-        </IconButton>,
+        (
+          <IconButton key="close" aria-label="Close" color="inherit" onClick={props.onClose}>
+            <CloseIcon />
+          </IconButton>
+        ),
       ]}
     />
   );

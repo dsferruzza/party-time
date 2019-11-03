@@ -52,7 +52,7 @@ function App(props: Props) {
         </div>
 
         <Status />
-        <UpdateWarning />
+        <UpdateWarning open={true} />
       </div>
     </Router>
   );

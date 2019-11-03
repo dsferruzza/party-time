@@ -27,9 +27,11 @@ function UpdateWarning(props: Props) {
       }}
       message={<span id="message-id">L'application a été mise à jour !</span>}
       action={[
-        <IconButton key="update" aria-label="Update" color="inherit" onClick={reload}>
-          <SystemUpdateIcon />
-        </IconButton>,
+        (
+          <IconButton key="update" aria-label="Update" color="inherit" onClick={reload}>
+            <SystemUpdateIcon />
+          </IconButton>
+        ),
       ]}
     />
   );
