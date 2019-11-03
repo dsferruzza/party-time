@@ -1,6 +1,6 @@
 variables:
   DEBIAN_FRONTEND: noninteractive
-  NODE_VERSION: 12
+  NODE_VERSION: 13
 
 .yarn_ready: &yarn
   image: node:$NODE_VERSION
