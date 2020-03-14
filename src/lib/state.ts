@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { PersistState } from 'redux-persist';
 
 import { Event } from './events';
 
@@ -33,7 +34,7 @@ function getBase(url: string): string {
 }
 const baseUrl = (typeof publicUrl === 'undefined' || publicUrl === '') ? '/' : getBase(publicUrl);
 
-export const emptyStore: StoreState = {
+export const emptyStore = {
   appUpdated: false,
   baseUrl,
   config: {
@@ -53,7 +54,7 @@ export const emptyStore: StoreState = {
   status: {
     msg: null,
   },
-};
+} as StoreState & { _persist: PersistState };
 
 export type Action = SetClientId | SetDueWorkDays | SetHolidays | SetHolidaysRegexChange | SetPartialTimeOffRegex | SetTimeMin | FetchCalendar | FetchCalendarError | ReceiveCalendar | ClearStatus | OpenMenu | CloseMenu | UpdateAccessToken | AppUpdated;
 export type ConfigAction = SetClientId | SetDueWorkDays | SetHolidays | SetHolidaysRegexChange | SetPartialTimeOffRegex | SetTimeMin;
