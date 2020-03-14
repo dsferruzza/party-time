@@ -41,8 +41,8 @@ export const emptyStore = {
     clientId: '',
     dueWorkDays: 218,
     holidays: 25,
-    holidaysRegex: '/^Congés/',
-    partialTimeOffRegex: '/^Absent|^RTT/',
+    holidaysRegex: '^Congés',
+    partialTimeOffRegex: '^Absent|^RTT',
     timeMin: '',
   },
   googleOAuth: {
