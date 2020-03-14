@@ -5,7 +5,7 @@ interface Props {
   data: Chartist.IChartistData
   className?: string
   options?: Chartist.IPieChartOptions
-  responsiveOptions?: Array<Chartist.IResponsiveOptionTuple<Chartist.IPieChartOptions>>
+  responsiveOptions?: Chartist.IResponsiveOptionTuple<Chartist.IPieChartOptions>[]
   style?: React.CSSProperties
 }
 
@@ -20,7 +20,7 @@ export class PieChart extends React.Component<Props> {
     this.updateChart(this.props);
   }
 
-  public componentWillReceiveProps(newProps: Props) {
+  public componentDidUpdate(newProps: Props) {
     this.updateChart(newProps);
   }
 

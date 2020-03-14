@@ -5,7 +5,7 @@ interface Props {
   data: object
   className?: string
   options?: Chartist.ILineChartOptions
-  responsiveOptions?: Array<Chartist.IResponsiveOptionTuple<Chartist.ILineChartOptions>>
+  responsiveOptions?: Chartist.IResponsiveOptionTuple<Chartist.ILineChartOptions>[]
   style?: React.CSSProperties
 }
 
@@ -20,7 +20,7 @@ export class LineChart extends React.Component<Props> {
     this.updateChart(this.props);
   }
 
-  public componentWillReceiveProps(newProps: Props) {
+  public componentDidUpdate(newProps: Props) {
     this.updateChart(newProps);
   }
 
