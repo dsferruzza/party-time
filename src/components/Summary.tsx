@@ -1,9 +1,9 @@
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -99,8 +99,8 @@ function Summary(props: Props) {
     };
 
     return (
-      <ExpansionPanel key={ys.startDate.toISO()} defaultExpanded={isExpanded}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      <Accordion key={ys.startDate.toISO()} defaultExpanded={isExpanded}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Grid container={true} spacing={4}>
             <Grid item={true} xs={12} sm={4}>
               <Typography variant="h4">{ys.startDate.get('year')} - {ys.startDate.get('year') + 1}</Typography>
@@ -110,8 +110,8 @@ function Summary(props: Props) {
               {balance}
             </Grid>
           </Grid>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        </AccordionSummary>
+        <AccordionDetails>
           <Grid container={true} spacing={2}>
             <Grid item={true} xs={12}>
               <Card>
@@ -123,8 +123,8 @@ function Summary(props: Props) {
             </Grid>
             {cards}
           </Grid>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
     );
   });
 

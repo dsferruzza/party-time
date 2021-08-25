@@ -2,6 +2,7 @@ import { DateTime, Duration } from 'luxon';
 import * as queryString from 'query-string';
 
 export const authWindowName = 'google_oauth2_login_popup';
+type WindowWithAuthCallback = Window & { authCallback(rawHash: string): void; };
 
 export interface AccessToken {
   accessToken: string
@@ -32,8 +33,8 @@ export function getAccessToken(clientId: string, currentAccessToken: string, cur
       };
       const authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' + queryString.stringify(qs);
       const popup = window.open(authUrl, authWindowName, `width=500,height=700,location=no,toolbar=no,menubar=no`);
-      const unsafeWindow: any = window;
-      unsafeWindow.authCallback = (rawHash: string) => {
+      const windowWithAuthCallback = window as unknown as WindowWithAuthCallback;
+      windowWithAuthCallback.authCallback = (rawHash: string) => {
         if (popup !== null) {
           popup.close();
         }
@@ -53,8 +54,9 @@ export function getAccessToken(clientId: string, currentAccessToken: string, cur
 }
 
 export function installAuthCallback(): void {
-  if (typeof window !== 'undefined' && window.name === authWindowName) {
-    window.opener.authCallback(window.location.hash);
+  if (window.opener !== null && window.name === authWindowName) {
+    const windowWithAuthCallback = window.opener as unknown as WindowWithAuthCallback;
+    windowWithAuthCallback.authCallback(window.location.hash);
   }
 }
 

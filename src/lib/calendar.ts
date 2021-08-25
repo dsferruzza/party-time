@@ -158,10 +158,13 @@ function generateEarnedPartialTimeOffDaysSeries(days: List<ClassifiedDay>, total
   });
   const numberOfDays = sortedDays.count();
   const gainPerDay = totalPartialTimeOffDays / numberOfDays;
-  return sortedDays.reduce((acc, cur) => ({
-    nextValue: acc.nextValue + gainPerDay,
-    series: acc.series.push({ x: cur.day, y: acc.nextValue }),
-  }), { series: List(), nextValue: 0 }).series;
+  return sortedDays.reduce((acc, cur) => {
+    const point = { x: cur.day, y: acc.nextValue };
+    return {
+      nextValue: acc.nextValue + gainPerDay,
+      series: acc.series.push(point),
+    };
+  }, { series: List<Point>(), nextValue: 0 }).series;
 }
 
 function generateConsumedPartialTimeOffDaysSeries(days: List<ClassifiedDay>): List<Point> {
@@ -174,10 +177,13 @@ function generateConsumedPartialTimeOffDaysSeries(days: List<ClassifiedDay>): Li
       return 0;
     }
   });
-  return sortedDays.reduce((acc, cur) => ({
-    nextValue: acc.nextValue + ((cur.type === 'partial-time-off') ? 1 : 0),
-    series: acc.series.push({ x: cur.day, y: acc.nextValue }),
-  }), { series: List(), nextValue: 0 }).series;
+  return sortedDays.reduce((acc, cur) => {
+    const point = { x: cur.day, y: acc.nextValue };
+    return {
+      nextValue: acc.nextValue + ((cur.type === 'partial-time-off') ? 1 : 0),
+      series: acc.series.push(point),
+    };
+  }, { series: List<Point>(), nextValue: 0 }).series;
 }
 
 export function yearSummary(classifiedDays: List<ClassifiedDay>, timeMin: DateTime, dueWorkDays: number, dueHolidays: number): List<YearSummary> {
