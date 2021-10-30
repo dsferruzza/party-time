@@ -1,5 +1,4 @@
 import { DateTime, Duration } from 'luxon';
-import * as queryString from 'query-string';
 
 export const authWindowName = 'google_oauth2_login_popup';
 type WindowWithAuthCallback = Window & { authCallback(rawHash: string): void; };
@@ -31,7 +30,7 @@ export function getAccessToken(clientId: string, currentAccessToken: string, cur
         scope: 'https://www.googleapis.com/auth/calendar.events.readonly',
         state: page,
       };
-      const authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' + queryString.stringify(qs);
+      const authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' + (new URLSearchParams(qs)).toString();
       const popup = window.open(authUrl, authWindowName, `width=500,height=700,location=no,toolbar=no,menubar=no`);
       const windowWithAuthCallback = window as unknown as WindowWithAuthCallback;
       windowWithAuthCallback.authCallback = (rawHash: string) => {
@@ -39,11 +38,12 @@ export function getAccessToken(clientId: string, currentAccessToken: string, cur
           popup.close();
         }
         if (rawHash !== '') {
-          const hash = queryString.parse(rawHash);
-          if (isValidHash(hash)) {
-            const seconds = parseInt(hash.expires_in, 10) - 5;
+          const hash = new URLSearchParams(rawHash.replace('#', ''));
+          const authHash = toAuthHash(hash);
+          if (authHash !== null) {
+            const seconds = parseInt(authHash.expires_in, 10) - 5;
             const expirationDate = DateTime.local().plus(Duration.fromObject({ seconds }));
-            resolve({ accessToken: hash.access_token, expirationDate });
+            resolve({ accessToken: authHash.access_token, expirationDate });
           }
         }
       };
@@ -60,12 +60,24 @@ export function installAuthCallback(): void {
   }
 }
 
-interface ValidHash {
+interface AuthHash {
   access_token: string
   expires_in: string
   state: string
 }
 
-function isValidHash(obj: any): obj is ValidHash {
-  return typeof obj.access_token === 'string' && typeof obj.expires_in === 'string' && typeof obj.state === 'string';
+function toAuthHash(hash: URLSearchParams): AuthHash | null {
+  const accessToken = hash.get('access_token');
+  const expiresIn = hash.get('expires_in');
+  const state = hash.get('state');
+
+  if (accessToken !== null && expiresIn !== null && state !== null) {
+    return {
+      access_token: accessToken,
+      expires_in: expiresIn,
+      state,
+    };
+  } else {
+    return null;
+  }
 }

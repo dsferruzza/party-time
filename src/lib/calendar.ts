@@ -1,7 +1,6 @@
 import { fetch } from 'cross-fetch';
 import { List } from 'immutable';
 import { DateTime, Duration, Interval, Settings } from 'luxon';
-import * as queryString from 'query-string';
 
 import { Event, Events } from './events';
 import { nonWorkingDays } from './nonWorkingDays';
@@ -11,12 +10,12 @@ Settings.defaultLocale = 'fr';
 export async function fetchCalendar(accessToken: string, timeMin: string): Promise<string> {
   const qs = {
     access_token: accessToken,
-    maxResults: 2500,
+    maxResults: (2500).toString(),
   };
   if (timeMin !== '') {
     Object.assign(qs, { timeMin });
   }
-  const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events?' + queryString.stringify(qs);
+  const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events?' + (new URLSearchParams(qs)).toString();
   const options: RequestInit = {
     headers: new Headers({
       'Content-Type': 'application/json',
