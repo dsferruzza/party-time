@@ -1,27 +1,23 @@
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
 import * as React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Bar from '../containers/Bar';
-import Config from '../containers/Config';
-import FutureList from '../containers/FutureList';
-import Home from '../containers/Home';
-import Menu from '../containers/Menu';
-import PassedList from '../containers/PassedList';
-import Status from '../containers/Status';
-import Summary from '../containers/Summary';
-import UpdateWarning from '../containers/UpdateWarning';
+import Bar from '../components/Bar';
+import Config from '../components/Config';
+import FutureList from '../components/FutureList';
+import Home from '../components/Home';
+import Menu from '../components/Menu';
+import PassedList from '../components/PassedList';
+import Status from '../components/Status';
+import Summary from '../components/Summary';
+import UpdateWarning from '../components/UpdateWarning';
+
+const theme = createTheme();
 
 const appName = 'Party Time';
-const styles = createStyles({
-  content: {
-    marginBottom: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 70,
-  },
-});
 
 const publicUrl = process.env.PUBLIC_URL;
 function getBase(url: string): string {
@@ -31,31 +27,38 @@ function getBase(url: string): string {
 }
 const base = (typeof publicUrl === 'undefined' || publicUrl === '') ? '/' : getBase(publicUrl);
 
-interface Props extends WithStyles<typeof styles> {}
-
-function App(props: Props) {
-  const { classes } = props;
-
+function App() {
   return (
-    <Router basename={base}>
-      <div>
-        <CssBaseline />
-        <Bar appName={appName} />
-        <Menu />
+    <StyledEngineProvider injectFirst={true}>
+      <ThemeProvider theme={theme}>
+        <Router basename={base}>
+          <div>
+            <CssBaseline />
+            <Bar appName={appName} />
+            <Menu />
 
-        <div className={classes.content}>
-          <Route path="/" exact={true} component={Home} />
-          <Route path="/config" component={Config} />
-          <Route path="/passed" component={PassedList} />
-          <Route path="/coming" component={FutureList} />
-          <Route path="/summary" component={Summary} />
-        </div>
+            <div css={css`
+              margin-bottom: 10px;
+              margin-left: 10px;
+              margin-right: 10px;
+              margin-top: 70px;
+            `}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/config" element={<Config />} />
+                <Route path="/passed" element={<PassedList />} />
+                <Route path="/coming" element={<FutureList />} />
+                <Route path="/summary" element={<Summary />} />
+              </Routes>
+            </div>
 
-        <Status />
-        <UpdateWarning open={true} />
-      </div>
-    </Router>
+            <Status />
+            <UpdateWarning />
+          </div>
+        </Router>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 }
 
-export default withStyles(styles)(App);
+export default App;

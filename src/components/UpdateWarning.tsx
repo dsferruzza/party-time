@@ -1,20 +1,15 @@
-import IconButton from '@material-ui/core/IconButton';
-import Snackbar from '@material-ui/core/Snackbar';
-import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
-import SystemUpdateIcon from '@material-ui/icons/SystemUpdate';
+import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
+import SystemUpdateIcon from '@mui/icons-material/SystemUpdate';
 import * as React from 'react';
 
-const styles = createStyles({
+import { PropsFromRedux, connector } from '../containers/UpdateWarning';
 
-});
-
-interface Props extends WithStyles<typeof styles> {
+type Props = PropsFromRedux & {
   open: boolean
-}
+};
 
 function UpdateWarning(props: Props) {
-  // const { classes } = props;
-
   return (
     <Snackbar
       anchorOrigin={{
@@ -28,7 +23,12 @@ function UpdateWarning(props: Props) {
       message={<span id="message-id">L'application a été mise à jour !</span>}
       action={[
         (
-          <IconButton key="update" aria-label="Update" color="inherit" onClick={reload}>
+          <IconButton
+            key="update"
+            aria-label="Update"
+            color="inherit"
+            onClick={reload}
+            size="large">
             <SystemUpdateIcon />
           </IconButton>
         ),
@@ -41,4 +41,4 @@ function reload() {
   window.location.reload();
 }
 
-export default withStyles(styles)(UpdateWarning);
+export default connector(UpdateWarning);

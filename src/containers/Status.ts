@@ -1,7 +1,6 @@
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import Status from '../components/Status';
 import { ClearStatus, StoreState } from '../lib/state';
 
 function mapStateToProps(state: StoreState) {
@@ -16,4 +15,5 @@ function mapDispatchToProps(dispatch: Dispatch<ClearStatus>) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Status);
+export const connector = connect(mapStateToProps, mapDispatchToProps);
+export type PropsFromRedux = ConnectedProps<typeof connector>;

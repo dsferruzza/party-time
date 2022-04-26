@@ -1,20 +1,16 @@
-import IconButton from '@material-ui/core/IconButton';
-import Snackbar from '@material-ui/core/Snackbar';
-import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
-import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
+import CloseIcon from '@mui/icons-material/Close';
 import * as React from 'react';
 
-const styles = createStyles({
+import { PropsFromRedux, connector } from '../containers/Status';
 
-});
-
-interface Props extends WithStyles<typeof styles> {
+type Props = PropsFromRedux & {
   msg: string | null
   onClose: () => void
-}
+};
 
 function Status(props: Props) {
-  // const { classes } = props;
   const open = props.msg !== null;
 
   return (
@@ -32,7 +28,12 @@ function Status(props: Props) {
       message={<span id="message-id">{props.msg}</span>}
       action={[
         (
-          <IconButton key="close" aria-label="Close" color="inherit" onClick={props.onClose}>
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={props.onClose}
+            size="large">
             <CloseIcon />
           </IconButton>
         ),
@@ -41,4 +42,4 @@ function Status(props: Props) {
   );
 }
 
-export default withStyles(styles)(Status);
+export default connector(Status);

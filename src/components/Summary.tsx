@@ -1,33 +1,29 @@
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Grid from '@material-ui/core/Grid';
-import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import * as Chartist from 'chartist';
 import { List as ImmutableList } from 'immutable';
 import { DateTime } from 'luxon';
 import * as React from 'react';
 
+import { PropsFromRedux, connector } from '../containers/Summary';
 import { YearSummary } from '../lib/calendar';
 import './chartsColors.css';
 import { LineChart } from './LineChart';
 import { PieChart } from './PieChart';
 
-const styles = createStyles({
-});
-
-interface Props extends WithStyles<typeof styles> {
+type Props = PropsFromRedux & {
   daysOffBalance: number
   yearSummary: ImmutableList<YearSummary>
-}
+};
 
 function Summary(props: Props) {
-  // const { classes } = props;
   const sections = props.yearSummary.map((ys, k) => {
     const cards = ys.monthSummaries.map(ms => {
       const data = {
@@ -135,4 +131,4 @@ function Summary(props: Props) {
   );
 }
 
-export default withStyles(styles)(Summary);
+export default connector(Summary);

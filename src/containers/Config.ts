@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import Config from '../components/Config';
 import { ConfigAction, StoreState } from '../lib/state';
 
 function mapStateToProps(state: StoreState) {
@@ -37,4 +36,5 @@ function mapDispatchToProps(dispatch: Dispatch<ConfigAction>) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Config);
+export const connector = connect(mapStateToProps, mapDispatchToProps);
+export type PropsFromRedux = ConnectedProps<typeof connector>;

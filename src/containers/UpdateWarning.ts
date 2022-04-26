@@ -1,6 +1,5 @@
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
-import UpdateWarning from '../components/UpdateWarning';
 import { StoreState } from '../lib/state';
 
 function mapStateToProps(state: StoreState) {
@@ -9,4 +8,5 @@ function mapStateToProps(state: StoreState) {
   };
 }
 
-export default connect(mapStateToProps, null)(UpdateWarning);
+export const connector = connect(mapStateToProps, {});
+export type PropsFromRedux = ConnectedProps<typeof connector>;

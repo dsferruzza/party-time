@@ -1,47 +1,42 @@
-import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
-import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import BackIcon from '@material-ui/icons/ArrowBack';
-import CachedIcon from '@material-ui/icons/Cached';
-import MenuIcon from '@material-ui/icons/Menu';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import AppBar from '@mui/material/AppBar';
+import IconButton from '@mui/material/IconButton';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import BackIcon from '@mui/icons-material/ArrowBack';
+import CachedIcon from '@mui/icons-material/Cached';
+import MenuIcon from '@mui/icons-material/Menu';
 import * as React from 'react';
 
-const styles = createStyles({
-  bar: {
-    display: 'flex',
-    zIndex: 1301,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-});
+import { PropsFromRedux, connector } from '../containers/Bar';
 
-export interface Props extends WithStyles<typeof styles> {
+type Props = PropsFromRedux & {
   appName: string
   onReloadClick: () => void
   menuOpenned: boolean
   toggleMenu: () => void
-}
+};
 
 function Bar(props: Props) {
-  const { classes } = props;
-
   return (
-    <AppBar position="fixed" className={classes.bar}>
+    <AppBar position="fixed" css={css`display: flex; z-index: 1301;`}>
       <Toolbar>
-        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={props.toggleMenu}>
+        <IconButton
+          css={css`
+            margin-left: -12px;
+            margin-right: 20px;
+          `}
+          color="inherit"
+          aria-label="Menu"
+          onClick={props.toggleMenu}
+          size="large">
           {(props.menuOpenned) ? <BackIcon /> : <MenuIcon />}
         </IconButton>
-        <Typography variant="h6" color="inherit" className={classes.grow}>
+        <Typography variant="h6" color="inherit" css={css`flex-grow: 1;`}>
           {props.appName}
         </Typography>
-        <IconButton color="inherit" onClick={props.onReloadClick}>
+        <IconButton color="inherit" onClick={props.onReloadClick} size="large">
           <CachedIcon />
         </IconButton>
       </Toolbar>
@@ -49,4 +44,4 @@ function Bar(props: Props) {
   );
 }
 
-export default withStyles(styles)(Bar);
+export default connector(Bar);

@@ -1,8 +1,8 @@
 import 'chartist/dist/chartist.min.css';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, legacy_createStore as createStore } from '@reduxjs/toolkit';
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
 import { persistReducer, persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -24,16 +24,16 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 const store = createStore(persistedReducer, emptyStore, composeWithDevTools(applyMiddleware(thunk)));
 const persistor = persistStore(store);
 
-ReactDOM.render(
-  (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  ),
-  document.getElementById('root') as HTMLElement
-);
+createRoot(document.getElementById('root')!)
+  .render(
+    (
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    )
+  );
 
 register({
   onUpdate: () => {

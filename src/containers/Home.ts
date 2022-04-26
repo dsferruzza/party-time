@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
-import Home from '../components/Home';
 import { StoreState } from '../lib/state';
 
 function mapStateToProps(state: StoreState) {
@@ -11,4 +10,5 @@ function mapStateToProps(state: StoreState) {
   };
 }
 
-export default connect(mapStateToProps, null)(Home);
+export const connector = connect(mapStateToProps, {});
+export type PropsFromRedux = ConnectedProps<typeof connector>;

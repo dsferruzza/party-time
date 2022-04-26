@@ -1,8 +1,7 @@
 import { DateTime } from 'luxon';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import Bar from '../components/Bar';
 import { fetchCalendar, parseEvents } from '../lib/calendar';
 import { getAccessToken } from '../lib/googleOAuth';
 import { FetchCalendar, FetchCalendarError, MenuAction, ReceiveCalendar, StoreState, UpdateAccessToken } from '../lib/state';
@@ -64,4 +63,5 @@ function mapDispatchToProps(dispatch: MyThunkDispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Bar);
+export const connector = connect(mapStateToProps, mapDispatchToProps);
+export type PropsFromRedux = ConnectedProps<typeof connector>;

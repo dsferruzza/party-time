@@ -1,8 +1,7 @@
 import { DateTime } from 'luxon';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import Menu from '../components/Menu';
 import { MenuAction, StoreState } from '../lib/state';
 
 function mapStateToProps(state: StoreState) {
@@ -19,4 +18,5 @@ function mapDispatchToProps(dispatch: Dispatch<MenuAction>) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Menu);
+export const connector = connect(mapStateToProps, mapDispatchToProps);
+export type PropsFromRedux = ConnectedProps<typeof connector>;
