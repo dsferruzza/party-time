@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FormEvent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -17,22 +17,22 @@ function mapStateToProps(state: StoreState) {
 
 function mapDispatchToProps(dispatch: Dispatch<ConfigAction>) {
   return {
-    onClientIdChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetClientId', clientId: e.currentTarget.value }),
-    onDueWorkDaysChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    onClientIdChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetClientId', clientId: e.currentTarget.value }),
+    onDueWorkDaysChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const n = parseInt(e.currentTarget.value, 10);
       if (!isNaN(n) && n < 365 && n >= 0) {
         dispatch({ type: 'SetDueWorkDays', dueWorkDays: n });
       }
     },
-    onHolidaysChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    onHolidaysChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const n = parseInt(e.currentTarget.value, 10);
       if (!isNaN(n) && n < 365 && n >= 0) {
         dispatch({ type: 'SetHolidays', holidays: n });
       }
     },
-    onHolidaysRegexChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetHolidaysRegexChange', holidaysRegex: e.currentTarget.value }),
-    onPartialTimeOffRegexChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetPartialTimeOffRegex', partialTimeOffRegex: e.currentTarget.value }),
-    onTimeMinChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetTimeMin', timeMin: e.currentTarget.value }),
+    onHolidaysRegexChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetHolidaysRegexChange', holidaysRegex: e.currentTarget.value }),
+    onPartialTimeOffRegexChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetPartialTimeOffRegex', partialTimeOffRegex: e.currentTarget.value }),
+    onTimeMinChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({ type: 'SetTimeMin', timeMin: e.currentTarget.value }),
   };
 }
 

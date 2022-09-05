@@ -2,7 +2,6 @@
 import { css } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
-import * as React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Bar from '../components/Bar';

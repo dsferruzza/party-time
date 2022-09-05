@@ -1,20 +1,21 @@
-import * as Chartist from 'chartist';
-import * as React from 'react';
+import { LineChart as Line } from 'chartist';
+import type { LineChartData, LineChartOptions } from 'chartist';
+import { Component } from 'react';
 
 interface Props {
-  data: object
+  data: LineChartData
   className?: string
-  options?: Chartist.ILineChartOptions
-  responsiveOptions?: Chartist.IResponsiveOptionTuple<Chartist.ILineChartOptions>[]
+  options?: LineChartOptions
+  responsiveOptions?: [string, LineChartOptions][]
   style?: React.CSSProperties
 }
 
-export class LineChart extends React.Component<Props> {
+export class LineChart extends Component<Props> {
 
   public displayName!: 'LineChart';
 
   protected chart!: HTMLDivElement | null;
-  protected chartist!: Chartist.IChartistLineChart;
+  protected chartist!: Line;
 
   public componentDidMount() {
     this.updateChart(this.props);
@@ -51,14 +52,10 @@ export class LineChart extends React.Component<Props> {
   }
 
   protected updateChart(config: Props) {
-    const data = config.data;
-    const options = config.options || {};
-    const responsiveOptions = config.responsiveOptions || [];
-
     if (this.chartist) {
-      this.chartist.update(data, options);
+      this.chartist.update(config.data, config.options);
     } else {
-      this.chartist = new Chartist.Line(this.chart, data as Chartist.IChartistData, options, responsiveOptions);
+      this.chartist = new Line(this.chart, config.data, config.options, config.responsiveOptions);
     }
 
     return this.chartist;

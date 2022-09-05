@@ -1,7 +1,6 @@
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
 import SystemUpdateIcon from '@mui/icons-material/SystemUpdate';
-import * as React from 'react';
 
 import { PropsFromRedux, connector } from '../containers/UpdateWarning';
 

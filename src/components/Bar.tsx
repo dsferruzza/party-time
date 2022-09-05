@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import BackIcon from '@mui/icons-material/ArrowBack';
 import CachedIcon from '@mui/icons-material/Cached';
 import MenuIcon from '@mui/icons-material/Menu';
-import * as React from 'react';
 
 import { PropsFromRedux, connector } from '../containers/Bar';
 

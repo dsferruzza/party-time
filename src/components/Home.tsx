@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import PollIcon from '@mui/icons-material/Poll';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { DateTime } from 'luxon';
-import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import { connector, PropsFromRedux } from '../containers/Home';

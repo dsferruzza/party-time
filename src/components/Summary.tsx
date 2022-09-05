@@ -7,10 +7,9 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import * as Chartist from 'chartist';
+import { AutoScaleAxis } from 'chartist';
 import { List as ImmutableList } from 'immutable';
 import { DateTime } from 'luxon';
-import * as React from 'react';
 
 import { PropsFromRedux, connector } from '../containers/Summary';
 import { YearSummary } from '../lib/calendar';
@@ -72,7 +71,7 @@ function Summary(props: Props) {
           return DateTime.fromMillis(value).toFormat('d LLL');
         },
         scaleMinSpace: 40,
-        type: Chartist.AutoScaleAxis,
+        type: AutoScaleAxis,
       },
       height: 300,
       series: {

@@ -1,20 +1,21 @@
-import * as Chartist from 'chartist';
-import * as React from 'react';
+import { PieChart as Pie } from 'chartist';
+import type { PieChartData, PieChartOptions } from 'chartist';
+import { Component } from 'react';
 
 interface Props {
-  data: Chartist.IChartistData
+  data: PieChartData
   className?: string
-  options?: Chartist.IPieChartOptions
-  responsiveOptions?: Chartist.IResponsiveOptionTuple<Chartist.IPieChartOptions>[]
+  options?: PieChartOptions
+  responsiveOptions?: [string, PieChartOptions][]
   style?: React.CSSProperties
 }
 
-export class PieChart extends React.Component<Props> {
+export class PieChart extends Component<Props> {
 
   public displayName!: 'PieChart';
 
   protected chart!: HTMLDivElement | null;
-  protected chartist!: Chartist.IChartistPieChart;
+  protected chartist!: Pie;
 
   public componentDidMount() {
     this.updateChart(this.props);
@@ -51,14 +52,10 @@ export class PieChart extends React.Component<Props> {
   }
 
   protected updateChart(config: Props) {
-    const data = config.data;
-    const options = config.options || {};
-    const responsiveOptions = config.responsiveOptions || [];
-
     if (this.chartist) {
-      this.chartist.update(data, options);
+      this.chartist.update(config.data, config.options);
     } else {
-      this.chartist = new Chartist.Pie(this.chart, data, options, responsiveOptions);
+      this.chartist = new Pie(this.chart, config.data, config.options, config.responsiveOptions);
     }
 
     return this.chartist;

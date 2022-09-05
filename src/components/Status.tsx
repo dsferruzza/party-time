@@ -1,7 +1,6 @@
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
 import CloseIcon from '@mui/icons-material/Close';
-import * as React from 'react';
 
 import { PropsFromRedux, connector } from '../containers/Status';
 

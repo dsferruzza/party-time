@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import TextField from '@mui/material/TextField';
-import * as React from 'react';
+import { FormEvent } from 'react';
 
 import { PropsFromRedux, connector } from '../containers/Config';
 
 type Props = PropsFromRedux & {
-  onClientIdChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  onDueWorkDaysChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  onHolidaysChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  onHolidaysRegexChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  onPartialTimeOffRegexChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  onTimeMinChange: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onClientIdChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onDueWorkDaysChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onHolidaysChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onHolidaysRegexChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onPartialTimeOffRegexChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onTimeMinChange: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   clientId: string
   dueWorkDays: number
   holidays: number

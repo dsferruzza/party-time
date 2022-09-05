@@ -3233,10 +3233,10 @@ char-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/char-regex/-/char-regex-2.0.1.tgz#6dafdb25f9d3349914079f010ba8d0e6ff9cd01e"
   integrity sha512-oSvEeo6ZUD7NepqAat3RqoucZ5SeqLJgOvVIwkafu6IP3V0pO38s/ypdVUmDDK6qIIHNlYHJAKX9E7R7HoKElw==
 
-chartist@^0.11.4:
-  version "0.11.4"
-  resolved "https://registry.yarnpkg.com/chartist/-/chartist-0.11.4.tgz#e96e1c573d8b67478920a3a6ae52359d9fc8d8b7"
-  integrity sha512-H4AimxaUD738/u9Mq8t27J4lh6STsLi4BQHt65nOtpLk3xyrBPaLiLMrHw7/WV9CmsjGA02WihjuL5qpSagLYw==
+chartist@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/chartist/-/chartist-1.1.2.tgz#d51a86e20ddafaa2e774912e96b7508547c8d07e"
+  integrity sha512-ccz4ob0rkW6ayxmge3CYkNhwiKLhmz9u2j8WCJw0MUbtQavGuL2KX0GrVntkohSSBgqogqeANFPIigeGrFoTKQ==
 
 check-types@^11.1.1:
   version "11.1.2"

@@ -13,7 +13,7 @@ import PollIcon from '@mui/icons-material/Poll';
 import SettingsIcon from '@mui/icons-material/Settings';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { DateTime } from 'luxon';
-import * as React from 'react';
+import { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { PropsFromRedux, connector } from '../containers/Menu';
@@ -34,7 +34,7 @@ const navLinkStyle = ({ isActive }: { isActive: boolean }) => ({
 // tslint:disable:jsx-no-lambda
 function Menu(props: Props) {
   const lockedItems = (props.lastFetch !== null) ? (
-    <React.Fragment>
+    <Fragment>
       <NavLink to="/passed" style={navLinkStyle} onClick={props.onClose} children={({ isActive }) => (
         <ListItemButton selected={isActive}>
           <ListItemIcon><ListIcon /></ListItemIcon>
@@ -53,7 +53,7 @@ function Menu(props: Props) {
           <ListItemText primary="Analyse" />
         </ListItemButton>
       )} />
-    </React.Fragment>
+    </Fragment>
   ) : null;
 
   return (

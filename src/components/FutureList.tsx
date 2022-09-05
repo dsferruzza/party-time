@@ -5,7 +5,6 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import * as Immutable from 'immutable';
-import * as React from 'react';
 
 import { PropsFromRedux, connector } from '../containers/FutureList';
 import { ClassifiedDay, dayTypeColor } from '../lib/calendar';
