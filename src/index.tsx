@@ -1,4 +1,4 @@
-import '../node_modules/chartist/dist/index.css';
+import '../node_modules/chartist/dist/index.scss';
 
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
